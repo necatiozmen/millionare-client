@@ -1,32 +1,26 @@
 const defaultState = {
-  questionsAnswer: {
-    q1: {
-      id: 1,
-      question: 'Which one is bigger ?',
-      answer: {
-            a: '1',
-            b: '2',
-            c: '3',
-            d: '4',
-          },
+  id: 0,
+  question: '',
+  answer: {
+      a: '',
+      b: '',
+      c: '',
+      d: '',
     },
-    q2: {
-      id: 2,
-      question: 'What is Life ?',
-      answer: {
-            a: 'Nothing',
-            b: 'Everything',
-            c: 'Something',
-            d: 'None of them',
-          },
-    },
-  },
+  correctAnswer: '',
 };
 
 const questions = (state = defaultState, action) => {
   switch (action.type) {
     case 'GET_QUESTION':
       return { ...state, getQuestion: true };
+    case 'DATABASE_TEST_REQUEST':
+      return { ...state, getQuestionfromDatabase: true };
+    case 'DATABASE_TEST_SUCCESS':
+      return { ...state, ...action.data };
+    case 'DATABASE_TEST_FAILURE':
+      return { ...state, getQuestionfromDatabase: action.error };
+
     default:
       return state;
   }

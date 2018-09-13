@@ -4,9 +4,15 @@ import { createStore, applyMiddleware, compose } from 'redux';
 import { StyleSheet, Text, View } from 'react-native';
 import reducers from './reducers';
 import RootNavigator  from './navigation/RootNavigator';
+import { api } from './middlewares/api';
 
-const store = createStore(reducers,
-window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
+const store = createStore(
+  reducers,
+  compose(
+    applyMiddleware(api),
+    window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+  ),
+);
 
 export default class App extends Component {
   render() {

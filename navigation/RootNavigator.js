@@ -32,9 +32,9 @@ const RootStackNavigator = createStackNavigator({
   },
 
 },
-// {
-//   initialRouteName: 'Home',
-// }
+{
+  initialRouteName: 'Home',
+}
 );
 
 export default function RootNavigator() {
