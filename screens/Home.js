@@ -4,18 +4,21 @@ import { connect } from 'react-redux';
 import { View, Text, Button, StyleSheet } from 'react-native';
 import { getQuestion, databaseTest } from '../actions';
 import Questions from './Questions';
-
+import Timer from '../components/Timer';
+// import TimerCountdown from 'react-native-timer-countdown';
 class Home extends Component {
 
-  constructor() {
-    super();
-    this.state = {
-      prize: 0,
-    };
-  }
+  // constructor() {
+  //   super();
+  //   this.state = {
+  //     prize: 0,
+  //   };
+  // }
+  state = { prize: 0 };
 
   updatePrize = () => {
     this.setState({ prize: this.state.prize + 100 });
+
   };
 
   onClickTest2 = () => {
@@ -32,7 +35,7 @@ class Home extends Component {
         </View>
         <View style={styles.timeMoneyContainer}>
           <View><Text>${this.state.prize}</Text></View>
-          <View><Text>59 Second</Text></View>
+          <View> <Timer /></View>
         </View>
         <Questions prizeChange={this.updatePrize}/>
         <Button
