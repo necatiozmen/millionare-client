@@ -1,12 +1,20 @@
-import React from 'react';
+import React, { Component } from 'react';
+import { Provider } from 'react-redux';
+import { createStore, applyMiddleware, compose } from 'redux';
 import { StyleSheet, Text, View } from 'react-native';
-
+import reducers from './reducers';
 import RootNavigator  from './navigation/RootNavigator';
 
+const store = createStore(reducers,
+window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
 
-export default class App extends React.Component {
+export default class App extends Component {
   render() {
-    return <RootNavigator />;
+    return (
+      <Provider store={store}>
+        <RootNavigator />
+      </Provider>
+    );
   }
 }
 
