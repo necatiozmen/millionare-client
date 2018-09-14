@@ -1,26 +1,28 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { View, Text, Button, StyleSheet } from 'react-native';
-import { databaseTest } from '../actions';
+import { databaseTest, prizeChange } from '../actions';
 
 class Questions extends Component {
 
-  constructor() {
-    super();
-    this.state = {
-      questionId: 1,
-      prize: 0,
-    };
-  }
+  state = {
+    questionId: 1,
+  };
+
 
   componentDidMount() {
     this.props.databaseTest(this.state.questionId);
+
   }
 
   answerCheck = (userAnswer) => {
     if (userAnswer == this.props.questionsAnswers.correctAnswer) {
       this.props.databaseTest(this.props.questionsAnswers.id + 1);
-      this.props.prizeChange();
+      this.props.prizeChange(true);
+
+    } else {
+      this.props.prizeChange(false);
+      this.props.databaseTest(this.state.questionId); // YANLISTA ILK SORUYA BASLAMASI ICIN
     }
   };
 
@@ -34,7 +36,7 @@ class Questions extends Component {
       </View>
 
         <View style={styles.answers}>
-          <Text>CEVAPLAR {this.state.prize}</Text>
+          <Text>CEVAPLAR </Text>
           <View>
             <Text onPress={() => this.answerCheck(this.props.questionsAnswers.answer.a)}>
               a: {this.props.questionsAnswers.answer.a}
@@ -64,10 +66,12 @@ class Questions extends Component {
 
 const mapStateToProps = state => ({
   questionsAnswers: state.questions,
+
 });
 
 const mapDispatchToProps = dispatch => ({
   databaseTest: (id) => dispatch(databaseTest(id)),
+  // prizeChange: (data) => dispatch(prizeChange(data)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Questions);

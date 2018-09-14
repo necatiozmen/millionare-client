@@ -15,3 +15,13 @@ export const databaseTest = (id) => ({
     method: 'GET',
   },
 });
+
+export const prizeChange = (data) => ({
+  type: 'PRIZE_UP',
+  payload: data,
+});
+
+export const currentQuestion = (data) => ({
+  type: 'CURRENT_QUESTION',
+  data,
+});

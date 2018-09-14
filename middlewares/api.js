@@ -17,7 +17,6 @@ export const api = store => next => (action) => {
     })
       .then(result => result.json())
       .then((data) => {
-        console.log(data);
         store.dispatch({
           type: `${action.type}_SUCCESS`,
           data,
