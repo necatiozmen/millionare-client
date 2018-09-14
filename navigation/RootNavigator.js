@@ -34,7 +34,8 @@ const RootStackNavigator = createStackNavigator({
 },
 {
   initialRouteName: 'Home',
-});
+}
+);
 
 export default function RootNavigator() {
   return <RootStackNavigator />;
