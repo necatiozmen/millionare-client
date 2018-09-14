@@ -1,7 +1,26 @@
 import React, { Component } from 'react';
-import { View, Text, Button, StyleSheet } from 'react-native';
+import { connect } from 'react-redux';
 
+import { View, Text, Button, StyleSheet } from 'react-native';
+import { getQuestion, databaseTest } from '../actions';
+import Questions from './Questions';
+import Timer from '../components/Timer';
+// import TimerCountdown from 'react-native-timer-countdown';
 class Home extends Component {
+
+  // constructor() {
+  //   super();
+  //   this.state = {
+  //     prize: 0,
+  //   };
+  // }
+  state = { prize: 0 };
+
+  updatePrize = () => {
+    this.setState({ prize: this.state.prize + 100 });
+
+  };
+
   onClickTest2 = () => {
     this.props.navigation.navigate('Profile');
   };
@@ -15,20 +34,10 @@ class Home extends Component {
           <View style={styles.jokerItem}>Joker3</View>
         </View>
         <View style={styles.timeMoneyContainer}>
-          <View><Text>$1000</Text></View>
-          <View><Text>59 Second</Text></View>
+          <View><Text>${this.state.prize}</Text></View>
+          <View> <Timer /></View>
         </View>
-        <View style={styles.questionsContainer}>
-          <View style={styles.question}><Text>SORU</Text></View>
-          <View style={styles.answers}>
-            <Text>CEVAPLAR</Text>
-            <View><Text>a</Text></View>
-            <View><Text>b</Text></View>
-            <View><Text>c</Text></View>
-            <View><Text>d</Text></View>
-          </View>
-
-        </View>
+        <Questions prizeChange={this.updatePrize}/>
         <Button
           onPress={() => this.onClickTest2()}
           title="Click to Profile"
@@ -40,14 +49,34 @@ class Home extends Component {
   }
 };
 
-export default Home;
+const mapDispatchToProps = dispatch => ({
+  getQuestion: id => dispatch(getQuestion(id)),
+  databaseTest: (id) => dispatch(databaseTest(id)),
+});
+
+// const mapStateToProps = state => ({
+//   questionsAnswers: state.questions.questionsAnswer,
+// });
+
+export default connect(null, mapDispatchToProps)(Home);
+
+
+
+
+
+
+
+
+
+
+
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
   jokerContainer: {
-    flex:1,
+    flex: 1,
     // height: 40,
     backgroundColor: '#fff',
     paddingLeft: 20,
@@ -64,7 +93,7 @@ const styles = StyleSheet.create({
   },
 
   timeMoneyContainer: {
-    flex:1,
+    flex: 1,
     backgroundColor: '#4286f4',
     paddingLeft: 20,
     paddingRight: 20,
@@ -72,21 +101,4 @@ const styles = StyleSheet.create({
     justifyContent: 'space-around',
     alignItems: 'center',
   },
-  questionsContainer: {
-    flex:3,
-    justifyContent: 'space-around',
-    alignItems: 'center',
-  },
-  question: {
-    height:30,
-    width:60,
-    borderRadius:12,
-    borderWidth:1,
-    borderColor:'#979797',
-    // paddingTop:15,
-    // paddingLeft:15,
-    alignItems:'center',
-  }
-
-
 });
