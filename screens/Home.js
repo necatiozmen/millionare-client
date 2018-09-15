@@ -4,7 +4,7 @@ import { View, Text, Button, StyleSheet } from 'react-native';
 import { getQuestion, databaseTest } from '../actions';
 import Questions from './Questions';
 import Timer from '../components/Timer';
-// import Prize from '../components/Prize';
+import Joker from '../components/Joker';
 
 class Home extends Component {
 
@@ -13,7 +13,6 @@ class Home extends Component {
     refresh: false,
 
   };
-
 
   updatePrize = (status) => {
     if (status) {
@@ -29,17 +28,17 @@ class Home extends Component {
     this.props.navigation.navigate('Profile');
   };
 
+  getData = (val) => {
+    console.log(val);
+  };
+
   render() {
     console.log('currentQuestion', this.props.questionsAnswers);
     const { navigation } = this.props;
 
     return (
       <View style={styles.container}>
-        <View style={styles.jokerContainer}>
-          <View style={styles.jokerItem}>Joker1</View>
-          <View style={styles.jokerItem}>Joker2</View>
-          <View style={styles.jokerItem}>Joker3</View>
-        </View>
+        <Joker />
         <View style={styles.timeMoneyContainer}>
           <View><Text>${this.state.prize}</Text></View>
           <View style={this.props.questionsAnswers.id > 5 ? styles.timer : ''}>
@@ -49,11 +48,16 @@ class Home extends Component {
             <Text>{this.props.questionsAnswers.id}.Soru</Text>
             <Text>Kalan Soru: {10 - this.props.questionsAnswers.id} </Text>
           </View>
+          <Button
+            onPress={() => this.props.navigation.navigate('Finish', { winPrize: 'Oyundan Ciktigin icin para yok' })}
+            title='Exit'
+            color="#fff"/>
         </View>
         <Questions
                    prizeChange={this.updatePrize}
                    questionId
                    navigation={this.props.navigation}
+                   propTest={this.getData}
                    />
         <Button
           onPress={() => this.onClickTest2()}
@@ -74,7 +78,7 @@ const mapDispatchToProps = dispatch => ({
 const mapStateToProps = state => ({
     priceUp: state.prizeJoker,
     questionsAnswers: state.questions,
-});
+  });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Home);
 
@@ -111,5 +115,5 @@ const styles = StyleSheet.create({
 
   timer: {
     display: 'none',
-  }
+  },
 });

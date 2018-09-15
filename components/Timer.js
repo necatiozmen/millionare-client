@@ -5,7 +5,6 @@ import { withNavigation } from 'react-navigation';
 class Timer extends Component {
 
   render() {
-    console.log('timer', this.props.stopTimer);
     return (
    <TimerCountdown
        initialSecondsRemaining={1000 * this.props.stopTimer }

@@ -25,3 +25,8 @@ export const currentQuestion = (data) => ({
   type: 'CURRENT_QUESTION',
   data,
 });
+
+export const jokerFifty = (data) => ({
+  type: 'JOKER_FIFTY',
+  data,
+});
