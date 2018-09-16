@@ -1,12 +1,20 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { View, Text, Button, StyleSheet } from 'react-native';
-import { jokerFifty } from '../actions';
+import { jokerFifty, jokerDouble } from '../actions';
 
 class Joker extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+     isFiftyDisabled: false,
+     isDoubleDisabled: false,
+    };
+    this.baseState = this.state;
+  }
+
 
   halfJoker = () => {
-
     const correctAnswer = this.props.questionsAnswers.correctAnswer;
     const answer = this.props.questionsAnswers.answer;
     let foundAnswer = '';
@@ -26,20 +34,27 @@ class Joker extends Component {
     fiftyArray.push(String.fromCharCode(val1), String.fromCharCode(val2));
 
     this.props.jokerFiftyDispatch(fiftyArray); // yuzde 50 ayarlanmis siklari gonderir
+    this.setState({isFiftyDisabled : true})
     // this._btn.setNativeProps({ disabled: true });
     //  ref={btn => this._btn = btn
     // console.log('sss', this._btn);
+  };
+
+
+  doubleJoker = () => {
+    this.props.jokerDoubleDispatch(true);
+    this.setState({isDoubleDisabled : true})
   };
 
   render() {
     return (
       <View  style={styles.jokerContainer}>
          <View style={styles.jokerItem}>
-           <Button onPress={() => this.halfJoker()}
+           <Button onPress={() => this.halfJoker()} disabled={this.state.isFiftyDisabled}
              title='J1'/>
          </View>
          <View style={styles.jokerItem}>
-           <Button onPress={() => console.log('jokerButton')} title='J2'/>
+           <Button onPress={() => this.doubleJoker()} disabled={this.state.isDoubleDisabled} title='J2'/>
          </View>
        </View>
    );
@@ -53,6 +68,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   jokerFiftyDispatch: data => dispatch(jokerFifty(data)),
+  jokerDoubleDispatch: data => dispatch(jokerDouble(data)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Joker);

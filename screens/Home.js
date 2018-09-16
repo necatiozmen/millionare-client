@@ -11,7 +11,6 @@ class Home extends Component {
   state = {
     prize: 0,
     refresh: false,
-
   };
 
   updatePrize = (status) => {
@@ -33,7 +32,7 @@ class Home extends Component {
   };
 
   render() {
-    console.log('currentQuestion', this.props.questionsAnswers);
+    // console.log('currentQuestion', this.props.questionsAnswers);
     const { navigation } = this.props;
 
     return (

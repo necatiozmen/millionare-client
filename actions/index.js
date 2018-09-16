@@ -30,3 +30,13 @@ export const jokerFifty = (data) => ({
   type: 'JOKER_FIFTY',
   data,
 });
+
+export const jokerDouble = (data) => ({
+  type: 'JOKER_DOUBLE',
+  data,
+});
+
+export const jokerOriginalStyleDispatch = (data) => ({
+  type:'JOKER_ORIGINAL_STYLE_BACK',
+  data,
+})
