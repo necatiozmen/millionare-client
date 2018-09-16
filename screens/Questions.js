@@ -31,14 +31,18 @@ class Questions extends Component {
   doubleJokerFunc = (val) => {
     if (this.state.jokerArray.includes(this.props.questionsAnswers.correctAnswer)) { // ve eger duble secenekelrden biri dogru ise
 
+
       this.props.jokerDoubleDispatch(false);
-      this.props.databaseTest(this.props.questionsAnswers.id + 1);
-      this.props.prizeChange(true);
-      this.props.jokerFiftyDispatch('jokerDoubleAfter'); //fifty jokerin fuonksiyonun class vale ile dispatch eder
+      setTimeout(() => {
+        this.props.databaseTest(this.props.questionsAnswers.id + 1),
+        this.props.prizeChange(true)}, 2000);
+        this.props.jokerFiftyDispatch('jokerDoubleAfter'); //fifty jokerin fuonksiyonun class vale ile dispatch eder
 
     } else {
-      this.props.prizeChange(false);
-      this.props.databaseTest(this.state.questionId);
+      setTimeout(() => {
+        this.props.prizeChange(false),
+        this.props.databaseTest(this.state.questionId)}, // YANLISTA ILK SORUYA BASLAMASI ICIN
+       2000);
       this.props.jokerFiftyDispatch('jokerDoubleAfter');
     }
   };
@@ -46,8 +50,6 @@ class Questions extends Component {
   answerCheck = (userAnswer) => { // TODO: databse correct naserlar degisti - if statema n degisti viewvlerdeki on pres leri degistir
 
       userAnswer.setNativeProps({ style: styles.answerClick });
-
-
 
       if (this.props.jokerDoubleValue && this.state.counter <= 1) { // duble secilmis ise
 
@@ -74,7 +76,7 @@ class Questions extends Component {
         }
 
         if (this.state.counter === 1) {
-          setTimeout(() => this.doubleJokerFunc(), 2000);
+          setTimeout(() => this.doubleJokerFunc(userAnswer), 2000); //cifte sans jokerinde kullanicinin sectigi siklardan olusan array i yollayip dogru cevap kontrolu yapan fonks
         }
 
       } else {
@@ -83,19 +85,18 @@ class Questions extends Component {
           setTimeout(() => userAnswer.setNativeProps({ style: styles.answerTrueClick }), 1000);
           setTimeout(() => {
             this.props.databaseTest(this.props.questionsAnswers.id + 1),
-            this.props.prizeChange(true)}
+            this.props.prizeChange(true),
+            userAnswer.setNativeProps({ style: styles.answerDoubleAfter })}
           , 2000);
+          setTimeout(() => this.props.jokerFiftyDispatch('jokerFiftyAfter'), 2200 );    // 50 50 joker basildiktan sonra eksi haline gelmesi icin
 
-          // this.props.databaseTest(this.props.questionsAnswers.id + 1);
-          // this.props.prizeChange(true);
-          // userAnswer.setNativeProps({ style: styles.answerAfterClick });
         } else {
           setTimeout(() => userAnswer.setNativeProps({ style: styles.answerFalseClick }), 1000);
           setTimeout(() => {
             this.props.prizeChange(false),
-            this.props.databaseTest(this.state.questionId)} // YANLISTA ILK SORUYA BASLAMASI ICIN
-          , 2000);
-
+            this.props.databaseTest(this.state.questionId), // YANLISTA ILK SORUYA BASLAMASI ICIN
+            userAnswer.setNativeProps({ style: styles.answerDoubleAfter });}, 2000);
+          setTimeout(() => this.props.jokerFiftyDispatch('jokerFiftyAfter'), 2200);    // 50 50 joker basildiktan sonra eksi haline gelmesi icin
         }
       }
     };
