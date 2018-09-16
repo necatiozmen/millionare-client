@@ -43,33 +43,34 @@ class Questions extends Component {
     }
   };
 
+  answerCheck = (userAnswer) => { // TODO: databse correct naserlar degisti - if statema n degisti viewvlerdeki on pres leri degistir
+
+      userAnswer.setNativeProps({ style: styles.answerClick });
 
 
-  answerCheck = (userAnswer) => {
-      this.props.jokerFiftyDispatch('jokerFiftyAfter'); // 50:50 joker kullandiktan sonra viewler eski haline doner
 
       if (this.props.jokerDoubleValue && this.state.counter <= 1) { // duble secilmis ise
 
         this.setState({ counter: this.state.counter + 1 }, () => console.log(''));
 
-        if (userAnswer === this.props.questionsAnswers.answer.a) {
+        if (userAnswer.props.answerKey === 'a') {
           this._answera.setNativeProps({ style: styles.answerDoubleJoker });
-          this.setState({ jokerArray: [...this.state.jokerArray, this.props.questionsAnswers.answer.a] });
+          this.setState({ jokerArray: [...this.state.jokerArray, 'a'] });
         }
 
-        if (userAnswer === this.props.questionsAnswers.answer.b) {
+        if (userAnswer.props.answerKey === 'b') {
           this._answerb.setNativeProps({ style: styles.answerDoubleJoker });
-          this.setState({ jokerArray: [...this.state.jokerArray, this.props.questionsAnswers.answer.b] });
+          this.setState({ jokerArray: [...this.state.jokerArray, 'b'] });
         }
 
-        if (userAnswer === this.props.questionsAnswers.answer.c) {
+        if (userAnswer.props.answerKey === 'c') {
           this._answerc.setNativeProps({ style: styles.answerDoubleJoker });
-          this.setState({ jokerArray: [...this.state.jokerArray, this.props.questionsAnswers.answer.c] });
+          this.setState({ jokerArray: [...this.state.jokerArray, 'c'] });
         }
 
-        if (userAnswer === this.props.questionsAnswers.answer.d) {
+        if (userAnswer.props.answerKey === 'd') {
           this._answerd.setNativeProps({ style: styles.answerDoubleJoker });
-          this.setState({ jokerArray: [...this.state.jokerArray, this.props.questionsAnswers.answer.d] });
+          this.setState({ jokerArray: [...this.state.jokerArray, 'd'] });
         }
 
         if (this.state.counter === 1) {
@@ -77,32 +78,41 @@ class Questions extends Component {
         }
 
       } else {
-        if (userAnswer == this.props.questionsAnswers.correctAnswer) {
-          this.props.databaseTest(this.props.questionsAnswers.id + 1);
-          this.props.prizeChange(true);
+
+        if (userAnswer.props.answerKey == this.props.questionsAnswers.correctAnswer) {
+          setTimeout(() => userAnswer.setNativeProps({ style: styles.answerTrueClick }), 1000);
+          setTimeout(() => {
+            this.props.databaseTest(this.props.questionsAnswers.id + 1),
+            this.props.prizeChange(true)}
+          , 2000);
+
+          // this.props.databaseTest(this.props.questionsAnswers.id + 1);
+          // this.props.prizeChange(true);
+          // userAnswer.setNativeProps({ style: styles.answerAfterClick });
         } else {
-          this.props.prizeChange(false);
-          this.props.databaseTest(this.state.questionId); // YANLISTA ILK SORUYA BASLAMASI ICIN
+          setTimeout(() => userAnswer.setNativeProps({ style: styles.answerFalseClick }), 1000);
+          setTimeout(() => {
+            this.props.prizeChange(false),
+            this.props.databaseTest(this.state.questionId)} // YANLISTA ILK SORUYA BASLAMASI ICIN
+          , 2000);
+
         }
       }
     };
 
   fiftyJoker = (value) => {
 
-
     if (value == 'jokerFiftyAfter') {
       this._answera.setNativeProps({ style: styles.answerFiftyAfter });
       this._answerb.setNativeProps({ style: styles.answerFiftyAfter });
       this._answerc.setNativeProps({ style: styles.answerFiftyAfter });
       this._answerd.setNativeProps({ style: styles.answerFiftyAfter });
-    }
-    else if (value === 'jokerDoubleAfter') {
+    } else if (value === 'jokerDoubleAfter') {
       this._answera.setNativeProps({ style: styles.answerDoubleAfter });
       this._answerb.setNativeProps({ style: styles.answerDoubleAfter });
       this._answerc.setNativeProps({ style: styles.answerDoubleAfter });
       this._answerd.setNativeProps({ style: styles.answerDoubleAfter });
-    }
-    else {
+    } else {
       if (this._answera.props.answerKey == value[0] || this._answera.props.answerKey == value[1]) {
         this._answera.setNativeProps({ style: styles.answerFiftyJoker });
       }
@@ -135,22 +145,22 @@ class Questions extends Component {
         <View style={styles.answers}>
           <Text>CEVAPLAR </Text>
           <View  answerKey='a' style={styles.answerView} ref={view => this._answera = view } >
-            <Text onPress={() => this.answerCheck(this.props.questionsAnswers.answer.a)}>
+            <Text onPress={() => this.answerCheck(this._answera)}>
               a: {this.props.questionsAnswers.answer.a}
             </Text>
           </View>
           <View answerKey='b' style={styles.answerView} ref={view => this._answerb = view }>
-            <Text onPress={() => this.answerCheck(this.props.questionsAnswers.answer.b)}>
+            <Text onPress={() => this.answerCheck(this._answerb)}>
               b: {this.props.questionsAnswers.answer.b}
             </Text>
           </View>
           <View answerKey='c' style={styles.answerView} ref={view => this._answerc = view }>
-            <Text onPress={() => this.answerCheck(this.props.questionsAnswers.answer.c)}>
+            <Text onPress={() => this.answerCheck(this._answerc)}>
               c: {this.props.questionsAnswers.answer.c}
             </Text>
           </View>
           <View answerKey='d' style={styles.answerView} ref={view => this._answerd = view }>
-            <Text onPress={() => this.answerCheck(this.props.questionsAnswers.answer.d)}>
+            <Text onPress={() => this.answerCheck(this._answerd)}>
               d: {this.props.questionsAnswers.answer.d}
             </Text>
           </View>
@@ -204,6 +214,15 @@ const styles = StyleSheet.create({
   },
   answerView: {
     backgroundColor: '#eee',
+  },
+  answerClick: {
+    backgroundColor: 'yellow',
+  },
+  answerTrueClick: {
+    backgroundColor: 'green',
+  },
+  answerFalseClick: {
+    backgroundColor: 'red',
   },
   answerFiftyJoker: {
     opacity: 0,

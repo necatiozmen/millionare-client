@@ -15,16 +15,10 @@ class Joker extends Component {
 
 
   halfJoker = () => {
+
     const correctAnswer = this.props.questionsAnswers.correctAnswer;
-    const answer = this.props.questionsAnswers.answer;
-    let foundAnswer = '';
     let fiftyArray = [];
-
-    for (const prop in answer) {
-      answer[prop] === correctAnswer ? foundAnswer = prop : '';
-    }
-
-    let newchar = foundAnswer.charCodeAt(0);
+    let newchar = correctAnswer.charCodeAt(0);
 
     newchar === 97 ? (val1 = newchar + 1,  val2 = newchar + 2) : '';
     newchar === 98 ? (val1 = newchar - 1,  val2 = newchar + 2) : '';
