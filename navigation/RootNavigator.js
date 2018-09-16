@@ -2,10 +2,8 @@ import React from 'react';
 import { createStackNavigator } from 'react-navigation';
 import Login from '../screens/Login';
 import Home from '../screens/Home';
-import Test from '../screens/Test';
+import Finish from '../screens/Finish';
 import ProfileTabNavigation from './ProfileTabNavigation';
-
-
 
 const RootStackNavigator = createStackNavigator({
   Login: {
@@ -20,10 +18,10 @@ const RootStackNavigator = createStackNavigator({
       title: 'Home',
     },
   },
-  Test: {
-    screen: Test,
+  Finish: {
+    screen: Finish,
     navigationOptions: {
-      title: 'Test',
+      title: 'Finish',
     },
   },
 

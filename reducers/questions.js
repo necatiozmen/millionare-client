@@ -1,5 +1,5 @@
 const defaultState = {
-  id: 0,
+  id: '',
   question: '',
   answer: {
       a: '',
@@ -20,7 +20,8 @@ const questions = (state = defaultState, action) => {
       return { ...state, ...action.data };
     case 'DATABASE_TEST_FAILURE':
       return { ...state, getQuestionfromDatabase: action.error };
-
+    case 'CURRENT_QUESTION':
+      return { ...state, currentQuestion: action.data }
     default:
       return state;
   }

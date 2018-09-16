@@ -1,7 +1,7 @@
-import { createMaterialTopTabNavigator, createBottomTabNavigator} from 'react-navigation';
+import { createMaterialTopTabNavigator, createBottomTabNavigator } from 'react-navigation';
 import Login from '../screens/Login';
 import Home from '../screens/Home';
-import Test from '../screens/Test';
+import Finish from '../screens/Finish';
 
 export default createBottomTabNavigator({
 
@@ -17,8 +17,8 @@ export default createBottomTabNavigator({
         tabBarLabel: 'ANA',
       },
   },
-  Test: {
-    screen: Test,
+  Finish: {
+    screen: Finish,
     navigationOptions: {
         tabBarLabel: 'TEST',
       },

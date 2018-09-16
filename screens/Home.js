@@ -1,23 +1,25 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-
 import { View, Text, Button, StyleSheet } from 'react-native';
 import { getQuestion, databaseTest } from '../actions';
 import Questions from './Questions';
 import Timer from '../components/Timer';
-// import TimerCountdown from 'react-native-timer-countdown';
+import Joker from '../components/Joker';
+
 class Home extends Component {
 
-  // constructor() {
-  //   super();
-  //   this.state = {
-  //     prize: 0,
-  //   };
-  // }
-  state = { prize: 0 };
+  state = {
+    prize: 0,
+    refresh: false,
+  };
 
-  updatePrize = () => {
-    this.setState({ prize: this.state.prize + 100 });
+  updatePrize = (status) => {
+    if (status) {
+      this.setState({ prize: this.state.prize + 100 });
+    } else {
+      this.props.navigation.navigate('Finish', { winPrize: this.state.prize });
+      this.setState({ prize: 0 });
+    }
 
   };
 
@@ -25,19 +27,37 @@ class Home extends Component {
     this.props.navigation.navigate('Profile');
   };
 
+  getData = (val) => {
+    console.log(val);
+  };
+
   render() {
+    // console.log('currentQuestion', this.props.questionsAnswers);
+    const { navigation } = this.props;
+
     return (
       <View style={styles.container}>
-        <View style={styles.jokerContainer}>
-          <View style={styles.jokerItem}>Joker1</View>
-          <View style={styles.jokerItem}>Joker2</View>
-          <View style={styles.jokerItem}>Joker3</View>
-        </View>
+        <Joker />
         <View style={styles.timeMoneyContainer}>
           <View><Text>${this.state.prize}</Text></View>
-          <View> <Timer /></View>
+          <View style={this.props.questionsAnswers.id > 5 ? styles.timer : ''}>
+            <Timer stopTimer={this.props.questionsAnswers.id > 5 ? 1000 : 10 } />
+          </View>
+          <View>
+            <Text>{this.props.questionsAnswers.id}.Soru</Text>
+            <Text>Kalan Soru: {10 - this.props.questionsAnswers.id} </Text>
+          </View>
+          <Button
+            onPress={() => this.props.navigation.navigate('Finish', { winPrize: 'Oyundan Ciktigin icin para yok' })}
+            title='Exit'
+            color="#fff"/>
         </View>
-        <Questions prizeChange={this.updatePrize}/>
+        <Questions
+                   prizeChange={this.updatePrize}
+                   questionId
+                   navigation={this.props.navigation}
+                   propTest={this.getData}
+                   />
         <Button
           onPress={() => this.onClickTest2()}
           title="Click to Profile"
@@ -54,22 +74,12 @@ const mapDispatchToProps = dispatch => ({
   databaseTest: (id) => dispatch(databaseTest(id)),
 });
 
-// const mapStateToProps = state => ({
-//   questionsAnswers: state.questions.questionsAnswer,
-// });
+const mapStateToProps = state => ({
+    priceUp: state.prizeJoker,
+    questionsAnswers: state.questions,
+  });
 
-export default connect(null, mapDispatchToProps)(Home);
-
-
-
-
-
-
-
-
-
-
-
+export default connect(mapStateToProps, mapDispatchToProps)(Home);
 
 const styles = StyleSheet.create({
   container: {
@@ -100,5 +110,9 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-around',
     alignItems: 'center',
+  },
+
+  timer: {
+    display: 'none',
   },
 });

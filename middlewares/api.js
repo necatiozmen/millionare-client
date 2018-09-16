@@ -1,5 +1,5 @@
 export const API = Symbol('API');
-export const SERVER_BASE_URL = 'http://localhost:5000';
+export const SERVER_BASE_URL = 'http://192.168.1.2:5000'; //localhost yaparsan iphone calismiyor
 
 export const api = store => next => (action) => {
   if (action[API]) {
@@ -17,7 +17,6 @@ export const api = store => next => (action) => {
     })
       .then(result => result.json())
       .then((data) => {
-        console.log(data);
         store.dispatch({
           type: `${action.type}_SUCCESS`,
           data,
