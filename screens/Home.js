@@ -5,6 +5,8 @@ import { getQuestion, databaseTest } from '../actions';
 import Questions from './Questions';
 import Timer from '../components/Timer';
 import Joker from '../components/Joker';
+import { LinearGradient } from 'expo';
+
 
 class Home extends Component {
 
@@ -36,8 +38,11 @@ class Home extends Component {
     const { navigation } = this.props;
 
     return (
+
       <View style={styles.container}>
+  
         <Joker />
+
         <View style={styles.timeMoneyContainer}>
           <View><Text>${this.state.prize}</Text></View>
           <View style={this.props.questionsAnswers.id > 5 ? styles.timer : ''}>
@@ -65,6 +70,7 @@ class Home extends Component {
           accessibilityLabel="Learn more about this purple button"
         />
       </View>
+
     );
   }
 };

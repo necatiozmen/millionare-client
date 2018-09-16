@@ -6,8 +6,6 @@ import reducers from './reducers';
 import RootNavigator  from './navigation/RootNavigator';
 import { api } from './middlewares/api';
 
-
-
 const store = createStore(
   reducers,
   compose(

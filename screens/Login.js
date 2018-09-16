@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { View, Text, Button } from 'react-native';
+import { View, Text, Image, StyleSheet } from 'react-native';
+import { Button, Icon } from 'native-base';
 
 class Login extends Component {
 
@@ -9,26 +10,43 @@ class Login extends Component {
 
   render() {
     return (
-      <View
-        style={{
-
-          flex: 1,
-          backgroundColor: '#fff',
-          alignItems: 'center',
-          justifyContent: 'center',
-        }}>
-        <View style={{backgroundColor: 'yellow'}}>
-          <Text>LOGIN</Text>
+      <View style={styles.container}>
+        <View style={styles.logoImg}><Image source={require('../assets/splash.png')} /></View>
+        <View style={styles.buttonContainer}>
+          <Button style={styles.button} onPress={() => this.onClickTest()}  large full warning >
+           <Text style={styles.buttonText}>Oyuna Basla</Text>
+         </Button>
         </View>
-        <Button
-          onPress={() => this.onClickTest()}
-          title="CLICK TO START A GAME"
-          color="#841584"
-          accessibilityLabel="Learn more about this purple button"
-        />
       </View>
     );
   }
 };
 
 export default Login;
+
+const styles = StyleSheet.create({
+  container: {
+      flex: 1,
+      backgroundColor: '#2B1088',
+      alignItems: 'center',
+      justifyContent: 'center',
+      flexDirection: 'column',
+    },
+  logoImg: {
+    flex: 3,
+    justifyContent: 'center',
+    marginTop:90,
+  },
+  buttonContainer: {
+    flex: 1,
+    justifyContent: 'flex-end',
+    marginBottom: 50,
+    width:240,
+  },
+  buttonText: {
+    fontSize: 20,
+   fontWeight: 'bold',
+
+  }
+
+});

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import TimerCountdown from 'react-native-timer-countdown';
 import { withNavigation } from 'react-navigation';
+import { LinearGradient } from 'expo';
 
 class Timer extends Component {
 
@@ -13,6 +14,7 @@ class Timer extends Component {
        allowFontScaling={true}
        style={{ fontSize: 20 }}
    />
+
  );
   }
 }

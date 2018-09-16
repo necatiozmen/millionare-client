@@ -8,9 +8,7 @@ import ProfileTabNavigation from './ProfileTabNavigation';
 const RootStackNavigator = createStackNavigator({
   Login: {
     screen: Login,
-    navigationOptions: {
-      title: 'Login',
-    },
+    navigationOptions:{ header:()=>null }
   },
   Home: {
     screen: Home,

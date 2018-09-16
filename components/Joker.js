@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { View, Text, Button, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet } from 'react-native';
 import { jokerFifty, jokerDouble } from '../actions';
+import { LinearGradient } from 'expo';
+import { Button, Icon } from 'native-base';
 
 class Joker extends Component {
   constructor(props) {
@@ -42,13 +44,18 @@ class Joker extends Component {
 
   render() {
     return (
+
       <View  style={styles.jokerContainer}>
-         <View style={styles.jokerItem}>
-           <Button onPress={() => this.halfJoker()} disabled={this.state.isFiftyDisabled}
-             title='J1'/>
-         </View>
-         <View style={styles.jokerItem}>
-           <Button onPress={() => this.doubleJoker()} disabled={this.state.isDoubleDisabled} title='J2'/>
+         <View>
+           <Button style={styles.jokerButton} onPress={() => this.halfJoker()} disabled={this.state.isFiftyDisabled}
+             >
+             <Icon type="MaterialCommunityIcons"  name='star-half' />
+           </Button>
+        </View>
+         <View>
+           <Button style={styles.jokerButton}  onPress={() => this.doubleJoker()} disabled={this.state.isDoubleDisabled}>
+             <Icon type="MaterialCommunityIcons"  name='star-half' />
+           </Button>
          </View>
        </View>
    );
@@ -73,18 +80,16 @@ const styles = StyleSheet.create({
   },
   jokerContainer: {
     flex: 1,
-    // height: 40,
     backgroundColor: '#fff',
     paddingLeft: 20,
     paddingRight: 20,
     flexDirection: 'row',
-    justifyContent: 'space-between',
+    justifyContent: 'space-around',
     alignItems: 'center',
 
   },
-  jokerItem: {
-    height: 40,
-    width: 40,
-    backgroundColor: 'skyblue',
-  },
+  // jokerButton: {
+  //   marginLeft:0,
+  //   width: '100%',
+  // }
 });

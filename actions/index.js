@@ -1,18 +1,15 @@
 import { API } from '../middlewares/api';
 
-
-
 export const getQuestion = id => ({
   type: 'GET_QUESTION',
   payload: id,
 });
 
-
-export const databaseTest = (id) => ({
+export const databaseTest = (questionId) => ({
   type: 'DATABASE_TEST',
   [API]: {
-    endpoint: `/test?id=${id}`,
-    method: 'GET',
+  
+    questionId: questionId,
   },
 });
 
@@ -37,6 +34,6 @@ export const jokerDouble = (data) => ({
 });
 
 export const jokerOriginalStyleDispatch = (data) => ({
-  type:'JOKER_ORIGINAL_STYLE_BACK',
+  type: 'JOKER_ORIGINAL_STYLE_BACK',
   data,
-})
+});
