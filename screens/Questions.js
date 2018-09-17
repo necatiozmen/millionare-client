@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { View, Text, Button, StyleSheet } from 'react-native';
 import { databaseTest, prizeChange, jokerFifty, jokerDouble } from '../actions';
+// import firebase from 'firebase';
 
 class Questions extends Component {
 
@@ -19,6 +20,23 @@ class Questions extends Component {
     // this.baseState = this.state; tekrar bak gerek olmayabilir
   }
 
+  // componentWillMount() {
+  //   var config = {
+  //     apiKey: 'AIzaSyCbmPGA9wNG1neewbQx7DNftScvPIGvEGY',
+  //     authDomain: 'millionare-database.firebaseapp.com',
+  //     databaseURL: 'https://millionare-database.firebaseio.com',
+  //     projectId: 'millionare-database',
+  //     storageBucket: 'millionare-database.appspot.com',
+  //     messagingSenderId: '563334098420',
+  //   };
+  //   firebase.initializeApp(config);
+  //
+  //  firebase.database().ref('/questions/' + 1).once('value', (data) => {
+  //    console.log(data.toJSON());
+  //  })
+  //
+  // }
+
   componentDidMount() {
     this.props.databaseTest(this.state.questionId);
   }
@@ -31,17 +49,17 @@ class Questions extends Component {
   doubleJokerFunc = (val) => {
     if (this.state.jokerArray.includes(this.props.questionsAnswers.correctAnswer)) { // ve eger duble secenekelrden biri dogru ise
 
-
       this.props.jokerDoubleDispatch(false);
       setTimeout(() => {
         this.props.databaseTest(this.props.questionsAnswers.id + 1),
-        this.props.prizeChange(true)}, 2000);
-        this.props.jokerFiftyDispatch('jokerDoubleAfter'); //fifty jokerin fuonksiyonun class vale ile dispatch eder
+        this.props.prizeChange(true);}, 2000);
+      this.props.jokerFiftyDispatch('jokerDoubleAfter'); //fifty jokerin fuonksiyonun class vale ile dispatch eder
 
     } else {
       setTimeout(() => {
         this.props.prizeChange(false),
-        this.props.databaseTest(this.state.questionId)}, // YANLISTA ILK SORUYA BASLAMASI ICIN
+        this.props.databaseTest(this.state.questionId);}, // YANLISTA ILK SORUYA BASLAMASI ICIN
+
        2000);
       this.props.jokerFiftyDispatch('jokerDoubleAfter');
     }
@@ -86,9 +104,8 @@ class Questions extends Component {
           setTimeout(() => {
             this.props.databaseTest(this.props.questionsAnswers.id + 1),
             this.props.prizeChange(true),
-            userAnswer.setNativeProps({ style: styles.answerDoubleAfter })}
-          , 2000);
-          setTimeout(() => this.props.jokerFiftyDispatch('jokerFiftyAfter'), 2200 );    // 50 50 joker basildiktan sonra eksi haline gelmesi icin
+            userAnswer.setNativeProps({ style: styles.answerDoubleAfter });}, 2000);
+          setTimeout(() => this.props.jokerFiftyDispatch('jokerFiftyAfter'), 2200);    // 50 50 joker basildiktan sonra eksi haline gelmesi icin
 
         } else {
           setTimeout(() => userAnswer.setNativeProps({ style: styles.answerFalseClick }), 1000);

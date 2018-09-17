@@ -1,21 +1,26 @@
+import firebase from 'firebase';
+
 export const API = Symbol('API');
-export const SERVER_BASE_URL = 'http://192.168.1.2:5000'; //localhost yaparsan iphone calismiyor
+
+
+const config = {
+  apiKey: 'AIzaSyCbmPGA9wNG1neewbQx7DNftScvPIGvEGY',
+  authDomain: 'millionare-database.firebaseapp.com',
+  databaseURL: 'https://millionare-database.firebaseio.com',
+  projectId: 'millionare-database',
+  storageBucket: 'millionare-database.appspot.com',
+  messagingSenderId: '563334098420',
+};
+
+firebase.initializeApp(config);
 
 export const api = store => next => (action) => {
   if (action[API]) {
-    const {
-      endpoint,
-      method,
-      body,
-      headers,
+    const { questionId,
     } = action[API];
 
-    fetch(`${SERVER_BASE_URL}${endpoint}`, {
-      method: method || 'GET',
-      body: JSON.stringify(body),
-      headers,
-    })
-      .then(result => result.json())
+    firebase.database().ref('/questions/' + questionId).once('value')
+      .then(result => result.toJSON())
       .then((data) => {
         store.dispatch({
           type: `${action.type}_SUCCESS`,
@@ -36,3 +41,13 @@ export const api = store => next => (action) => {
     next(action);
   }
 };
+
+
+
+
+// fetch(`${SERVER_BASE_URL}${endpoint}`, {
+//   method: method || 'GET',
+//   body: JSON.stringify(body),
+//   headers,
+// })
+//   .then(result => result.json())
