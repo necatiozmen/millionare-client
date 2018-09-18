@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { View, Text, StyleSheet } from 'react-native';
-import { jokerFifty, jokerDouble } from '../actions';
+import { jokerFifty, jokerDouble,jokerFiftyDispatch, jokerFiftyVisibleChecker } from '../actions';
 import { LinearGradient } from 'expo';
 import { Button, Icon } from 'native-base';
+import Timer from './Timer';
 
 class Joker extends Component {
   constructor(props) {
@@ -24,16 +25,15 @@ class Joker extends Component {
 
     newchar === 97 ? (val1 = newchar + 1,  val2 = newchar + 2) : '';
     newchar === 98 ? (val1 = newchar - 1,  val2 = newchar + 2) : '';
-    newchar === 99 ? (val1 = newchar + 1,  val2 = newchar - 2) : '';
+    newchar === 99 ? (val1 = newchar - 1,  val2 = newchar - 2) : '';
     newchar === 100 ? (val1 = newchar - 1,  val2 = newchar - 2) : '';
 
     fiftyArray.push(String.fromCharCode(val1), String.fromCharCode(val2));
 
+    this.props.jokerFiftyVisibleCheckerDispatch(true);
     this.props.jokerFiftyDispatch(fiftyArray); // yuzde 50 ayarlanmis siklari gonderir
     this.setState({isFiftyDisabled : true})
-    // this._btn.setNativeProps({ disabled: true });
-    //  ref={btn => this._btn = btn
-    // console.log('sss', this._btn);
+
   };
 
 
@@ -43,6 +43,7 @@ class Joker extends Component {
   };
 
   render() {
+
     return (
 
       <View  style={styles.jokerContainer}>
@@ -51,6 +52,9 @@ class Joker extends Component {
              >
              <Icon type="MaterialCommunityIcons"  name='star-half' />
            </Button>
+        </View>
+        <View style={this.props.questionsAnswers.id > 5 ? styles.timer : styles.timerView}>
+          <View><Timer stopTimer={this.props.questionsAnswers.id > 5 ? 1000 : 10 } /></View>
         </View>
          <View>
            <Button style={styles.jokerButton}  onPress={() => this.doubleJoker()} disabled={this.state.isDoubleDisabled}>
@@ -70,26 +74,48 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   jokerFiftyDispatch: data => dispatch(jokerFifty(data)),
   jokerDoubleDispatch: data => dispatch(jokerDouble(data)),
+  jokerFiftyVisibleCheckerDispatch: data => dispatch(jokerFiftyVisibleChecker(data)),
+
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Joker);
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
+
   jokerContainer: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: '#2B1088',
     paddingLeft: 20,
     paddingRight: 20,
+
+    // paddingTop:40,
     flexDirection: 'row',
     justifyContent: 'space-around',
-    alignItems: 'center',
+    alignItems: 'flex-start',
 
   },
-  // jokerButton: {
-  //   marginLeft:0,
-  //   width: '100%',
-  // }
+  jokerButton: {
+    backgroundColor:'#f6b93b',
+    marginLeft:0,
+    borderRadius: 90,
+    width: '100%',
+    marginTop:30
+  },
+  timer: {
+    display: 'none',
+  },
+  timerView:{
+   justifyContent: 'center',
+   alignItems:'center',
+   width: 100,
+   height: 100,
+   borderRadius: 200/2,
+   borderWidth: 4,
+   borderColor: '#979797',
+   alignSelf:'flex-end',
+   marginBottom:30,
+
+
+
+  }
 });

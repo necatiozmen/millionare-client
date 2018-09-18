@@ -5,6 +5,11 @@ import { StyleSheet, Text, View } from 'react-native';
 import reducers from './reducers';
 import RootNavigator  from './navigation/RootNavigator';
 import { api } from './middlewares/api';
+import MontserratRegular from './assets/fonts/Montserrat-Regular.ttf';
+import MontserratMedium from './assets/fonts/Montserrat-Medium.ttf';
+import MontserratSemiBold from './assets/fonts/Montserrat-SemiBold.ttf';
+import MontserratBold from './assets/fonts/Montserrat-Bold.ttf';
+import MontserratExtraBold from './assets/fonts/Montserrat-ExtraBold.ttf';
 
 const store = createStore(
   reducers,
@@ -15,7 +20,35 @@ const store = createStore(
 );
 
 export default class App extends Component {
+  constructor() {
+    super();
+    this.state = {
+      isReady: false,
+    };
+  }
+
+  componentWillMount() {
+  this.loadFonts();
+}
+
+
+  async loadFonts() {
+    await Expo.Font.loadAsync({
+      MontserratRegular,
+      MontserratSemiBold,
+      MontserratMedium,
+      MontserratBold,
+      MontserratExtraBold,
+    });
+    this.setState({ isReady: true });
+  }
+
+
+
   render() {
+    if (!this.state.isReady) {
+      return <Expo.AppLoading />;
+  }
     return (
       <Provider store={store}>
         <RootNavigator />
