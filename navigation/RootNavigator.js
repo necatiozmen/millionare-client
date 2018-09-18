@@ -17,9 +17,7 @@ const RootStackNavigator = createStackNavigator({
   },
   Finish: {
     screen: Finish,
-    navigationOptions: {
-      title: 'Finish',
-    },
+    navigationOptions:{ header:()=>null }
   },
 
   Profile: {

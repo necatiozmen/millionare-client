@@ -33,7 +33,7 @@ class Questions extends Component {
       this.props.jokerDoubleDispatch(false); // double jokerin answer check de bir daha kullanilmamasi icin false yaptik
       this.correctAnswerColor(this.props.questionsAnswers.correctAnswer) // dogri sikki yesil yapalim
       setTimeout(() => {
-        this.jokerAfterStyle('jokerDoubleAfterStyle'), // daha sonra siklardaki rengi temizleyelim
+        this.jokerAfterStyle(), // daha sonra siklardaki rengi temizleyelim
         this.props.databaseTest(this.props.questionsAnswers.id + 1),
         this.props.prizeChange(true);}, 2000);
     } else {
@@ -80,17 +80,17 @@ class Questions extends Component {
       } else {
 
         if (userAnswer.props.answerKey == this.props.questionsAnswers.correctAnswer) {
-        
+
           setTimeout(() => userAnswer.setNativeProps({ style: styles.answerTrueColor }), 1000);
           setTimeout(() => {
             this.props.databaseTest(this.props.questionsAnswers.id + 1),
             this.props.prizeChange(true),
             userAnswer.setNativeProps({ style: styles.answerViewItem });}, 2000);
-          setTimeout(() => this.jokerAfterStyle('jokerFiftyAfterStyle'), 2200);
+          setTimeout(() => this.jokerAfterStyle(), 2200);
         } else {
           setTimeout(() => userAnswer.setNativeProps({ style: styles.answerFalseColor }, this.correctAnswerColor(this.props.questionsAnswers.correctAnswer)), 1000);
           setTimeout(() => {this.props.prizeChange(false);}, 2000); //para artmasin ve cikis ekraninna gitsin
-          setTimeout(() => this.jokerAfterStyle('jokerFiftyAfterStyle'), 2200);    // 50 50 joker basildiktan sonra eksi haline gelmesi icin
+          setTimeout(() => this.jokerAfterStyle(), 2200);    // 50 50 joker basildiktan sonra eksi haline gelmesi icin
         }
       }
     };
@@ -103,20 +103,10 @@ class Questions extends Component {
   }
 
   jokerAfterStyle = (value) => {
-
-    if (value == 'jokerFiftyAfterStyle') { // soru dogru ise en son dispatch edlien deger did update ile buraya glir
-
-      this._answera.setNativeProps({ style: styles.answerFiftyAfter });
-      this._answerb.setNativeProps({ style: styles.answerFiftyAfter });
-      this._answerc.setNativeProps({ style: styles.answerFiftyAfter });
-      this._answerd.setNativeProps({ style: styles.answerFiftyAfter });
-
-    } else if (value === 'jokerDoubleAfterStyle') {
       this._answera.setNativeProps({ style: styles.answerViewItem });
       this._answerb.setNativeProps({ style: styles.answerViewItem });
       this._answerc.setNativeProps({ style: styles.answerViewItem });
       this._answerd.setNativeProps({ style: styles.answerViewItem });
-    }
   };
 
   fiftyJoker = (value) => {
@@ -136,13 +126,10 @@ class Questions extends Component {
       if (this._answerd.props.answerKey == value[0] || this._answerd.props.answerKey == value[1]) {
         this._answerd.setNativeProps({ style: styles.answerFiftyJoker });
       }
-
       this.props.jokerFiftyVisibleCheckerDispatch(false);
-
     };
 
   render() {
-
     return (
       <View style={styles.questionsContainer}>
         <View style={styles.question}>
@@ -150,29 +137,26 @@ class Questions extends Component {
           {this.props.questionsAnswers.question}
          </Text>
       </View>
-
       <View ref={view => this._view = view } style={styles.answers}>
-        <Button  answerKey='a'  style={styles.answerViewItem} ref={view => this._answera = view } >
+        <View  answerKey='a'  style={styles.answerViewItem} ref={view => this._answera = view } >
            <Text onPress={() => this.answerCheck(this._answera)} style={styles.answerText}>
              {this.props.questionsAnswers.answer.a}
            </Text>
-         </Button>
-         <Button  answerKey='b'  style={styles.answerViewItem} ref={view => this._answerb = view }>
+         </View>
+         <View  answerKey='b'  style={styles.answerViewItem} ref={view => this._answerb = view }>
            <Text onPress={() => this.answerCheck(this._answerb)} style={styles.answerText}>
              {this.props.questionsAnswers.answer.b}
            </Text>
-         </Button>
-         <Button  answerKey='c'  style={styles.answerViewItem} ref={view => this._answerc = view }>
+         </View>
+         <View  answerKey='c'  style={styles.answerViewItem} ref={view => this._answerc = view }>
            <Text onPress={() => this.answerCheck(this._answerc)} style={styles.answerText} >
              {this.props.questionsAnswers.answer.c}
            </Text>
-         </Button>
-         <Button  answerKey='d'  style={styles.answerViewItem}   ref={view => this._answerd = view }>
+         </View>
+         <View  answerKey='d'  style={styles.answerViewItem}   ref={view => this._answerd = view }>
            <Text onPress={() => this.answerCheck(this._answerd)} style={styles.answerText} >{this.props.questionsAnswers.answer.d} </Text>
-         </Button>
+         </View>
        </View>
-
-
       </View>
     );
   }
@@ -237,7 +221,8 @@ const styles = StyleSheet.create({
     backgroundColor: '#4a69bd',
     borderRadius:8,
     borderWidth: 2,
-    borderColor: '#fff'
+    borderColor: '#fff',
+    opacity:1,
   },
   answerText :{
     fontFamily: 'MontserratRegular',
