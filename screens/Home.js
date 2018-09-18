@@ -6,7 +6,7 @@ import Questions from './Questions';
 import Timer from '../components/Timer';
 import Joker from '../components/Joker';
 import { LinearGradient } from 'expo';
-
+import StarRating from 'react-native-star-rating';
 
 class Home extends Component {
 
@@ -22,32 +22,24 @@ class Home extends Component {
       this.props.navigation.navigate('Finish', { winPrize: this.state.prize });
       this.setState({ prize: 0 });
     }
-
-  };
-
-  onClickTest2 = () => {
-    this.props.navigation.navigate('Profile');
-  };
-
-  getData = (val) => {
-    console.log(val);
   };
 
   render() {
-    // console.log('currentQuestion', this.props.questionsAnswers);
     const { navigation } = this.props;
-
     return (
-
       <View style={styles.container}>
-  
-        <Joker />
-
+        <Joker style={styles.jokerContainer} />
         <View style={styles.timeMoneyContainer}>
-          <View><Text>${this.state.prize}</Text></View>
-          <View style={this.props.questionsAnswers.id > 5 ? styles.timer : ''}>
-            <Timer stopTimer={this.props.questionsAnswers.id > 5 ? 1000 : 10 } />
+          <View>
+            <StarRating
+              starSize={20}
+        disabled={false}
+        maxStars={10}
+        fullStarColor={'#f6b93b'}
+        rating={parseInt(this.props.questionsAnswers.id)}
+      />
           </View>
+          <View><Text>${this.state.prize}</Text></View>
           <View>
             <Text>{this.props.questionsAnswers.id}.Soru</Text>
             <Text>Kalan Soru: {10 - this.props.questionsAnswers.id} </Text>
@@ -62,15 +54,8 @@ class Home extends Component {
                    questionId
                    navigation={this.props.navigation}
                    propTest={this.getData}
-                   />
-        <Button
-          onPress={() => this.onClickTest2()}
-          title="Click to Profile"
-          color="#841584"
-          accessibilityLabel="Learn more about this purple button"
         />
       </View>
-
     );
   }
 };
@@ -91,25 +76,11 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
-  jokerContainer: {
-    flex: 1,
-    // height: 40,
-    backgroundColor: '#fff',
-    paddingLeft: 20,
-    paddingRight: 20,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-
+  jokerContainer:{
+    flex:1
   },
-  jokerItem: {
-    height: 40,
-    width: 40,
-    backgroundColor: 'skyblue',
-  },
-
   timeMoneyContainer: {
-    flex: 1,
+    height:90,
     backgroundColor: '#4286f4',
     paddingLeft: 20,
     paddingRight: 20,
@@ -118,7 +89,5 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
 
-  timer: {
-    display: 'none',
-  },
+
 });

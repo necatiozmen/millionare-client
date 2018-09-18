@@ -12,9 +12,8 @@ const RootStackNavigator = createStackNavigator({
   },
   Home: {
     screen: Home,
-    navigationOptions: {
-      title: 'Home',
-    },
+    navigationOptions:{ header:()=>null }
+
   },
   Finish: {
     screen: Finish,
@@ -28,9 +27,9 @@ const RootStackNavigator = createStackNavigator({
   },
 
 },
-{
-  initialRouteName: 'Home',
-}
+// {
+//   initialRouteName: 'Home',
+// }
 );
 
 export default function RootNavigator() {

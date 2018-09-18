@@ -8,7 +8,7 @@ export const getQuestion = id => ({
 export const databaseTest = (questionId) => ({
   type: 'DATABASE_TEST',
   [API]: {
-  
+
     questionId: questionId,
   },
 });
@@ -27,13 +27,17 @@ export const jokerFifty = (data) => ({
   type: 'JOKER_FIFTY',
   data,
 });
+export const jokerAfterStyle = (data) => ({
+  type: 'JOKER_AFTER_STYLE',
+  data,
+});
 
 export const jokerDouble = (data) => ({
   type: 'JOKER_DOUBLE',
   data,
 });
 
-export const jokerOriginalStyleDispatch = (data) => ({
-  type: 'JOKER_ORIGINAL_STYLE_BACK',
+export const jokerFiftyVisibleChecker = (data) => ({
+  type: 'JOKER_FIFTY_VISIBLE_CHECKER',
   data,
 });
