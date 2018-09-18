@@ -47,18 +47,34 @@ class Joker extends Component {
     return (
 
       <View  style={styles.jokerContainer}>
-         <View>
-           <Button style={styles.jokerButton} onPress={() => this.halfJoker()} disabled={this.state.isFiftyDisabled}
-             >
-             <Icon type="MaterialCommunityIcons"  name='star-half' />
-           </Button>
+         <View >
+           <Button
+             style={!this.state.isFiftyDisabled ? styles.jokerButton : styles.jokerButtonDisabled}
+             onPress={() => this.halfJoker()}
+             disabled={this.state.isFiftyDisabled}
+            >
+            <Icon
+              type="MaterialCommunityIcons"
+              name='star-half'
+              style={{fontSize: 25 }}
+             />
+          </Button>
         </View>
         <View style={this.props.questionsAnswers.id > 5 ? styles.timer : styles.timerView}>
-          <View><Timer stopTimer={this.props.questionsAnswers.id > 5 ? 1000 : 10 } /></View>
+          <View>
+            <Timer stopTimer={this.props.questionsAnswers.id > 5 ? 1000 : 10 } />
+          </View>
         </View>
          <View>
-           <Button style={styles.jokerButton}  onPress={() => this.doubleJoker()} disabled={this.state.isDoubleDisabled}>
-             <Icon type="MaterialCommunityIcons"  name='star-half' />
+           <Button
+             style={!this.state.isDoubleDisabled ? styles.jokerButton : styles.jokerButtonDisabled}
+             onPress={() => this.doubleJoker()}
+             disabled={this.state.isDoubleDisabled}>
+             <Icon
+               type="FontAwesome"
+               name='superscript'
+               style={{fontSize: 25 }}
+            />
            </Button>
          </View>
        </View>
@@ -87,19 +103,26 @@ const styles = StyleSheet.create({
     backgroundColor: '#2B1088',
     paddingLeft: 20,
     paddingRight: 20,
-
-    // paddingTop:40,
     flexDirection: 'row',
     justifyContent: 'space-around',
-    alignItems: 'flex-start',
+    alignItems: 'center',
 
   },
   jokerButton: {
+    justifyContent:'center',
+    alignItems:'center',
     backgroundColor:'#f6b93b',
-    marginLeft:0,
-    borderRadius: 90,
-    width: '100%',
-    marginTop:30
+    width:60,
+    height:60,
+    borderRadius:30,
+    marginTop:20
+  },
+  jokerButtonDisabled:{
+    backgroundColor:'#f2f2f2',
+    width:60,
+    height:60,
+    borderRadius:30,
+    marginTop:20
   },
   timer: {
     display: 'none',

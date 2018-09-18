@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { View, Text, StyleSheet,TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { databaseTest, prizeChange, jokerFifty, jokerDouble, jokerAfterStyle, jokerFiftyVisibleChecker } from '../actions';
 import { Button, Icon } from 'native-base';
 
@@ -31,23 +31,22 @@ class Questions extends Component {
   doubleJokerFunc = () => {
     if (this.state.jokerArray.includes(this.props.questionsAnswers.correctAnswer)) { // ve eger duble secenekelrden biri dogru ise
       this.props.jokerDoubleDispatch(false); // double jokerin answer check de bir daha kullanilmamasi icin false yaptik
-      this.correctAnswerColor(this.props.questionsAnswers.correctAnswer) // dogri sikki yesil yapalim
+      this.correctAnswerColor(this.props.questionsAnswers.correctAnswer); // dogri sikki yesil yapalim
       setTimeout(() => {
         this.jokerAfterStyle(), // daha sonra siklardaki rengi temizleyelim
         this.props.databaseTest(this.props.questionsAnswers.id + 1),
         this.props.prizeChange(true);}, 2000);
     } else {
-      this.correctAnswerColor(this.props.questionsAnswers.correctAnswer)
+      this.correctAnswerColor(this.props.questionsAnswers.correctAnswer);
       setTimeout(() => {
-        this.props.prizeChange(false)},
+        this.props.prizeChange(false);},
+
        2000);
     }
   };
 
-
   answerCheck = (userAnswer) => { // TODO: databse correct naserlar degisti - if statema n degisti viewvlerdeki on pres leri degistir
       userAnswer.setNativeProps({ style: styles.answerClickYellow }); //secilen her sik sari yapar
-      console.log(this._view);
 
       if (this.props.jokerDoubleValue && this.state.counter <= 1) { // duble secilmis ise
 
@@ -100,17 +99,17 @@ class Questions extends Component {
     if (value === 'b') this._answerb.setNativeProps({ style: styles.answerTrueColor });
     if (value === 'c') this._answerc.setNativeProps({ style: styles.answerTrueColor });
     if (value === 'd') this._answerd.setNativeProps({ style: styles.answerTrueColor });
-  }
+  };
 
   jokerAfterStyle = (value) => {
       this._answera.setNativeProps({ style: styles.answerViewItem });
       this._answerb.setNativeProps({ style: styles.answerViewItem });
       this._answerc.setNativeProps({ style: styles.answerViewItem });
       this._answerd.setNativeProps({ style: styles.answerViewItem });
-  };
+    };
 
   fiftyJoker = (value) => {
-  console.log('her zaman cagi');
+      console.log('her zaman cagi');
       if (this._answera.props.answerKey == value[0] || this._answera.props.answerKey == value[1]) {
         this._answera.setNativeProps({ style: styles.answerFiftyJoker });
       }
@@ -126,6 +125,7 @@ class Questions extends Component {
       if (this._answerd.props.answerKey == value[0] || this._answerd.props.answerKey == value[1]) {
         this._answerd.setNativeProps({ style: styles.answerFiftyJoker });
       }
+
       this.props.jokerFiftyVisibleCheckerDispatch(false);
     };
 
@@ -137,25 +137,41 @@ class Questions extends Component {
           {this.props.questionsAnswers.question}
          </Text>
       </View>
-      <View ref={view => this._view = view } style={styles.answers}>
-        <View  answerKey='a'  style={styles.answerViewItem} ref={view => this._answera = view } >
-           <Text onPress={() => this.answerCheck(this._answera)} style={styles.answerText}>
-             {this.props.questionsAnswers.answer.a}
-           </Text>
-         </View>
-         <View  answerKey='b'  style={styles.answerViewItem} ref={view => this._answerb = view }>
-           <Text onPress={() => this.answerCheck(this._answerb)} style={styles.answerText}>
+      <View  style={styles.answers}>
+
+          <TouchableOpacity  onPress={() => this.answerCheck(this._answera)}  >
+              <View answerKey='a'  style={styles.answerViewItem} ref={view => this._answera = view }>
+             <Text  style={styles.answerText}>
+               {this.props.questionsAnswers.answer.a}
+             </Text>
+              </View>
+           </TouchableOpacity>
+
+
+         <TouchableOpacity onPress={() => this.answerCheck(this._answerb)}  >
+           <View answerKey='b'  style={styles.answerViewItem} ref={view => this._answerb = view }>
+           <Text  style={styles.answerText}>
              {this.props.questionsAnswers.answer.b}
            </Text>
-         </View>
-         <View  answerKey='c'  style={styles.answerViewItem} ref={view => this._answerc = view }>
-           <Text onPress={() => this.answerCheck(this._answerc)} style={styles.answerText} >
+            </View>
+         </TouchableOpacity>
+
+         <TouchableOpacity onPress={() => this.answerCheck(this._answerc)}  >
+           <View answerKey='c'  style={styles.answerViewItem} ref={view => this._answerc = view }>
+
+           <Text  style={styles.answerText} >
              {this.props.questionsAnswers.answer.c}
            </Text>
-         </View>
-         <View  answerKey='d'  style={styles.answerViewItem}   ref={view => this._answerd = view }>
-           <Text onPress={() => this.answerCheck(this._answerd)} style={styles.answerText} >{this.props.questionsAnswers.answer.d} </Text>
-         </View>
+              </View>
+         </TouchableOpacity>
+
+         <TouchableOpacity onPress={() => this.answerCheck(this._answerd)}  >
+           <View answerKey='d'  style={styles.answerViewItem}   ref={view => this._answerd = view }>
+
+           <Text  style={styles.answerText} >{this.props.questionsAnswers.answer.d} </Text>
+            </View>
+         </TouchableOpacity>
+
        </View>
       </View>
     );
@@ -188,7 +204,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: '#2B1088',
 
-
   },
   question: {
     height: 50,
@@ -199,13 +214,13 @@ const styles = StyleSheet.create({
     marginTop: 20,
     marginBottom: 40,
     alignItems: 'center',
-    justifyContent:'center',
+    justifyContent: 'center',
   },
 
   questionText: {
     fontFamily: 'MontserratMedium',
-    color:'#fff',
-    fontSize:20,
+    color: '#fff',
+    fontSize: 20,
   },
 
   answers: {
@@ -214,24 +229,24 @@ const styles = StyleSheet.create({
     justifyContent: 'space-around',
   },
   answerViewItem: {
-    height:40,
-    width:200,
+    height: 40,
+    width: 200,
     justifyContent: 'center',
-    alignItems:'center',
+    alignItems: 'center',
     backgroundColor: '#4a69bd',
-    borderRadius:8,
+    borderRadius: 8,
     borderWidth: 2,
     borderColor: '#fff',
-    opacity:1,
+    opacity: 1,
   },
-  answerText :{
+  answerText: {
     fontFamily: 'MontserratRegular',
-    color:'#fff',
-    fontSize:20,
+    color: '#fff',
+    fontSize: 20,
   },
-  button:{
+  button: {
 
-    marginLeft:0,
+    marginLeft: 0,
     width: '100%',
   },
   answerClickYellow: {

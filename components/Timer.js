@@ -11,7 +11,9 @@ class Timer extends Component {
    <TimerCountdown
         initialSecondsRemaining={1000 * this.props.stopTimer }
        // onTick={secondsRemaining => console.log('tick', secondsRemaining)}
-       // onTimeElapsed={() =>   this.props.navigation.navigate('Finish') }
+       // onTimeElapsed={() =>   this.props.navigation.navigate('Finish',{
+       //   resultTitle:'timesUp',
+       // }) }
        allowFontScaling={true}
        style={{ fontSize: 55 ,color:'#fff',  fontFamily: 'MontserratSemiBold', }}
    />

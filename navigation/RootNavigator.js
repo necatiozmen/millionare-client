@@ -1,9 +1,8 @@
 import React from 'react';
 import { createStackNavigator } from 'react-navigation';
-import Login from '../screens/Login';
-import Home from '../screens/Home';
+import Login from '../screens/Login/Login';
+import Home from '../screens/Home/Home';
 import Finish from '../screens/Finish';
-import ProfileTabNavigation from './ProfileTabNavigation';
 
 const RootStackNavigator = createStackNavigator({
   Login: {
@@ -18,10 +17,6 @@ const RootStackNavigator = createStackNavigator({
   Finish: {
     screen: Finish,
     navigationOptions:{ header:()=>null }
-  },
-
-  Profile: {
-    screen: ProfileTabNavigation,
   },
 
 },
