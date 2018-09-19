@@ -1,40 +1,24 @@
 import React from 'react';
 import { createStackNavigator } from 'react-navigation';
-import Login from '../screens/Login';
-import Home from '../screens/Home';
-import Test from '../screens/Test';
-import ProfileTabNavigation from './ProfileTabNavigation';
-
-
+import Login from '../screens/Login/Login';
+import Home from '../screens/Home/Home';
+import Finish from '../screens/Finish/Finish';
 
 const RootStackNavigator = createStackNavigator({
   Login: {
     screen: Login,
-    navigationOptions: {
-      title: 'Login',
-    },
+    navigationOptions: { header: ()=>null },
   },
   Home: {
     screen: Home,
-    navigationOptions: {
-      title: 'Home',
-    },
-  },
-  Test: {
-    screen: Test,
-    navigationOptions: {
-      title: 'Test',
-    },
-  },
+    navigationOptions: { header: ()=>null },
 
-  Profile: {
-    screen: ProfileTabNavigation,
   },
-
+  Finish: {
+    screen: Finish,
+    navigationOptions: { header: ()=>null },
+  },
 },
-{
-  initialRouteName: 'Home',
-}
 );
 
 export default function RootNavigator() {

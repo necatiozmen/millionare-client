@@ -1,17 +1,23 @@
 import { API } from '../middlewares/api';
 
-
-
-export const getQuestion = id => ({
-  type: 'GET_QUESTION',
-  payload: id,
+export const getQuestions = (questionId) => ({
+  type: 'GET_QUESTIONS',
+  [API]: {
+    questionId: questionId,
+  },
 });
 
+export const jokerFifty = (data) => ({
+  type: 'JOKER_FIFTY',
+  data,
+});
 
-export const databaseTest = (id) => ({
-  type: 'DATABASE_TEST',
-  [API]: {
-    endpoint: `/test?id=${id}`,
-    method: 'GET',
-  },
+export const jokerDouble = (data) => ({
+  type: 'JOKER_DOUBLE',
+  data,
+});
+
+export const isFiftyJokerSelectDispatch = (data) => ({
+  type: 'IS_FIFTY_JOKER_SELECT',
+  data,
 });

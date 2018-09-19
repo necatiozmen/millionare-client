@@ -1,5 +1,5 @@
 const defaultState = {
-  id: 0,
+  id: '',
   question: '',
   answer: {
       a: '',
@@ -12,15 +12,12 @@ const defaultState = {
 
 const questions = (state = defaultState, action) => {
   switch (action.type) {
-    case 'GET_QUESTION':
-      return { ...state, getQuestion: true };
-    case 'DATABASE_TEST_REQUEST':
+    case 'GET_QUESTIONS_REQUEST':
       return { ...state, getQuestionfromDatabase: true };
-    case 'DATABASE_TEST_SUCCESS':
+    case 'GET_QUESTIONS_SUCCESS':
       return { ...state, ...action.data };
-    case 'DATABASE_TEST_FAILURE':
+    case 'GET_QUESTIONS_FAILURE':
       return { ...state, getQuestionfromDatabase: action.error };
-
     default:
       return state;
   }

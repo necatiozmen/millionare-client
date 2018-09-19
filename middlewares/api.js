@@ -1,23 +1,20 @@
+import firebase from 'firebase';
+
 export const API = Symbol('API');
-export const SERVER_BASE_URL = 'http://localhost:5000';
+
+const config = {
+//firebase config
+};
+
+firebase.initializeApp(config);
 
 export const api = store => next => (action) => {
   if (action[API]) {
-    const {
-      endpoint,
-      method,
-      body,
-      headers,
-    } = action[API];
+    const { questionId } = action[API];
 
-    fetch(`${SERVER_BASE_URL}${endpoint}`, {
-      method: method || 'GET',
-      body: JSON.stringify(body),
-      headers,
-    })
-      .then(result => result.json())
+    firebase.database().ref('/questions/' + questionId).once('value')
+      .then(result => result.toJSON())
       .then((data) => {
-        console.log(data);
         store.dispatch({
           type: `${action.type}_SUCCESS`,
           data,
