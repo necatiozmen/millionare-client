@@ -42,7 +42,7 @@ export default StyleSheet.create({
     backgroundColor: '#c03546',
   },
   exitButtonText: {
-    fontSize:12,
+    fontSize: 12,
     fontFamily: 'MontserratMedium',
     color: '#fff',
   },

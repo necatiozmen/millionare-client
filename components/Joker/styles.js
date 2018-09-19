@@ -9,7 +9,6 @@ export default StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-around',
     alignItems: 'center',
-
   },
   jokerButton: {
     justifyContent: 'center',

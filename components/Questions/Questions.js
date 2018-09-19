@@ -59,7 +59,6 @@ class Questions extends Component {
             break;
         }
         if (this.state.counter === 1) setTimeout(() => this.doubleJokerFunc(), 2000); //cifte sans jokerinde kullanicinin sectigi siklardan olusan array'i yollayip dogru cevap kontrolu yap
-
       } else {
         if (userAnswer.props.answerKey == this.props.questionsAnswers.correctAnswer) { // eger cevap dogru ise
           setTimeout(() => userAnswer.setNativeProps({ style: styles.answerTrueColor }), 1000);
@@ -150,7 +149,7 @@ class Questions extends Component {
           </Text>
          </View>
        </TouchableOpacity>
-       <TouchableOpacity onPress={() => this.answerCheck(this._answerd)}  >
+       <TouchableOpacity onPress={() => this.answerCheck(this._answerd)}>
          <View
            answerKey='d'
            style={styles.answerNormalStyle}

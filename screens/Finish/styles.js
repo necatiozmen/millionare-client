@@ -1,8 +1,7 @@
 import { StyleSheet } from 'react-native';
-import { Dimensions } from "react-native";
+import { Dimensions } from 'react-native';
 
-const width = Dimensions.get('window').width; 
-const height = Dimensions.get('window').height; 
+const width = Dimensions.get('window').width;
 
 export default StyleSheet.create({
   finishContainer: {
@@ -14,44 +13,44 @@ export default StyleSheet.create({
   },
   finishHeader: {
     width: width,
-    alignItems:'center',
-    justifyContent:'space-around',
-    backgroundColor:'#c03546',
-    marginTop:70,
+    alignItems: 'center',
+    justifyContent: 'space-around',
+    backgroundColor: '#c03546',
+    marginTop: 70,
   },
   headerTextStyle: {
     fontSize: 30,
-    padding:20,
+    padding: 20,
     fontFamily: 'MontserratMedium',
     color: '#fff',
   },
-  finishMessage:{
+  finishMessage: {
     width: width,
-    alignItems:'center',
-    paddingTop:20,
-    paddingBottom:20,
-    borderBottomWidth:1,
-    borderTopWidth:1,
-    borderColor:"#fff",
+    alignItems: 'center',
+    paddingTop: 20,
+    paddingBottom: 20,
+    borderBottomWidth: 1,
+    borderTopWidth: 1,
+    borderColor: '#fff',
   },
   textStyle: {
     fontSize: 20,
     fontFamily: 'MontserratMedium',
     color: '#fff',
   },
-  awardContainer:{
-    justifyContent:'center',
-    alignItems:'center',
+  awardContainer: {
+    justifyContent: 'center',
+    alignItems: 'center',
   },
-  awardHeaderText:{
+  awardHeaderText: {
     fontSize: 23,
-    marginBottom:20,
+    marginBottom: 20,
     fontFamily: 'MontserratMedium',
     color: '#fff',
   },
   awardMoney: {
-    width:width,
-    backgroundColor:'#5CAB7D',
+    width: width,
+    backgroundColor: '#5CAB7D',
     padding: 15,
     alignItems: 'center',
   },
@@ -59,7 +58,6 @@ export default StyleSheet.create({
     fontSize: 30,
     fontFamily: 'MontserratMedium',
     color: '#fff',
-
   },
   restartButton: {
     width: 240,

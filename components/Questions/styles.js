@@ -1,8 +1,7 @@
 import { StyleSheet } from 'react-native';
-import { Dimensions } from "react-native";
+import { Dimensions } from 'react-native';
 
-const width = Dimensions.get('window').width; 
-const height = Dimensions.get('window').height; 
+const width = Dimensions.get('window').width;
 
 export default StyleSheet.create({
   questionsContainer: {
@@ -15,8 +14,8 @@ export default StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     width: width,
-    borderBottomWidth:2,
-    borderTopWidth:2,
+    borderBottomWidth: 2,
+    borderTopWidth: 2,
     borderColor: '#fff',
     marginTop: 20,
     marginBottom: 20,
@@ -32,7 +31,7 @@ export default StyleSheet.create({
     justifyContent: 'space-around',
     paddingRight: 60,
     paddingLeft: 60,
-    marginBottom:30,
+    marginBottom: 30,
   },
   answerNormalStyle: {
     height: 40,
@@ -40,8 +39,8 @@ export default StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: 'transparent',
-    borderBottomWidth:1,
-    borderTopWidth:1,
+    borderBottomWidth: 1,
+    borderTopWidth: 1,
     borderColor: 'black',
     opacity: 1,
   },
