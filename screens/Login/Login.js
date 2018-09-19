@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, Image } from 'react-native';
-import { Button, Icon } from 'native-base';
+import { View, Text, TouchableOpacity, Image } from 'react-native';
 import styles from './styles';
 
 class Login extends Component {
@@ -12,11 +11,13 @@ class Login extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <View style={styles.logoImg}><Image source={require('../../assets/splash.png')} /></View>
+        <View style={styles.logoImg}>
+          <Image source={require('../../assets/splash.png')} />
+        </View>
         <View style={styles.buttonContainer}>
-          <Button style={styles.button} onPress={() => this.startGame()}  large full warning >
-           <Text style={styles.buttonText}>Oyuna Basla</Text>
-         </Button>
+          <TouchableOpacity style={styles.button} onPress={() => this.startGame()}>
+            <Text style={styles.buttonText}>Oyuna Basla</Text>
+          </TouchableOpacity>
         </View>
       </View>
     );

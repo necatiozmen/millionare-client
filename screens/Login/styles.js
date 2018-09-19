@@ -5,8 +5,6 @@ export default StyleSheet.create({
     flex: 1,
     backgroundColor: '#2B1088',
     alignItems: 'center',
-    justifyContent: 'center',
-    flexDirection: 'column',
   },
   logoImg: {
     flex: 3,
@@ -15,9 +13,15 @@ export default StyleSheet.create({
   },
   buttonContainer: {
     flex: 1,
-    justifyContent: 'flex-end',
-    marginBottom: 50,
-    width: 240,
+    justifyContent: 'center',
+    alignItems:'center',
+  },
+  button: {
+    width: 280,
+    height: 50,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#f6b93b',
   },
   buttonText: {
     fontFamily: 'MontserratMedium',
