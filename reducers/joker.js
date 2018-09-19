@@ -1,8 +1,7 @@
 const defaultState = {
     jokerFifty: [],
     jokerDouble: '',
-    jokerFiftyVisibleChecker: '',
-    jokerAfterStyle:'',
+    isFiftyJokerSelect: '',
   };
 
 const joker = (state = defaultState, action) => {
@@ -11,10 +10,8 @@ const joker = (state = defaultState, action) => {
       return { ...state, jokerFifty: action.data };
     case 'JOKER_DOUBLE':
       return { ...state, jokerDouble: action.data };
-    case 'JOKER_FIFTY_VISIBLE_CHECKER':
-      return { ...state, jokerFiftyVisibleChecker: action.data };
-    case 'JOKER_AFTER_STYLE':
-      return { ...state, jokerAfterStyle: action.data };
+    case 'IS_FIFTY_JOKER_SELECT':
+      return { ...state, isFiftyJokerSelect: action.data };
     default:
       return state;
   }
