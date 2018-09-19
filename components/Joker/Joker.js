@@ -24,9 +24,9 @@ class Joker extends Component {
 
     fiftyArray.push(String.fromCharCode(val1), String.fromCharCode(val2));
 
-    this.props.isFiftyJokerSelectDispatch(true); // questindaki didupdate icindeki function calismasi icin
+    this.props.isFiftyJokerSelectDispatch(true); // parenttaki didupdate function calismasi icin
     this.props.jokerFiftyDispatch(fiftyArray); // yuzde 50 ayarlanmis siklari gonderir
-    this.setState({ isFiftyDisabled: true }); //butonu diasble yaar
+    this.setState({ isFiftyDisabled: true });
   };
 
   doubleJoker = () => {
@@ -54,7 +54,7 @@ class Joker extends Component {
           <View>
             <Timer
               timesUp={this.props.jokerTimerHelper}
-              stopTimer={this.props.questionsAnswers.id > 5 ? 1000 : 20 }
+              stopTimer={this.props.questionsAnswers.id > 5 ? 1000 : 30 }
             />
           </View>
         </View>

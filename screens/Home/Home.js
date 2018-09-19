@@ -13,17 +13,17 @@ class Home extends Component {
   };
 
   updatePrize = (status) => {
-    if (status) {  // eget cevap dogru ise
+    if (status) { 
       this.setState({ prize: this.state.prize + 100 });
-      this.setState({ moneyArray: [...this.state.moneyArray, this.state.prize] }); // baraj soru limitindemi takibi icin kazandigi miktarlari array de tutuyorum
-      if (this.props.questionsAnswers.id === 10) {//eger son soruyu dogru bilirse finish ekranina gider
+      this.setState({ moneyArray: [...this.state.moneyArray, this.state.prize] });
+      if (this.props.questionsAnswers.id === 10) {// son soruyu dogru bilirse finish ekranina gider
         this.props.navigation.navigate('Finish', {
           resultTitle: 'winBigAward',
           finalMoney: this.state.prize,
         });
       }
-    } else { //eger cevap yanlis ise
-      this.leaveGame('falseAnswer'); //  baraj sorulardami diye kontrol ediyorum.Duruma gore garantiledigi parayi alir
+    } else {
+      this.leaveGame('falseAnswer'); //  baraj sorulardami diye kontrol ediyorum.Limite garantiledigi parayi alir
       this.props.navigation.navigate('Finish', {
         resultTitle: 'falseAnswer',
       });
@@ -31,21 +31,20 @@ class Home extends Component {
     }
   };
 
-  leaveGame = (value) => { //baraj sorusu kontrolu
+  leaveGame = (value) => {
     let exitLimitIndex = 0;
-    let leaveOrFalse = 'leaveGame';  // oyundan cekil butonu ile baraj soru sinirina gore
+    let leaveOrFalse = 'leaveGame';
 
-
-    if (value === 'falseAnswer') leaveOrFalse = 'falseAnswer'; // bunu yapmamin sebebi cevap yanlis oldugunda da bu function cagiriyorum ikisine biribirinde ayirmaylim sonuc ekranini da ona gore mesaj olacak
+    if (value === 'falseAnswer') leaveOrFalse = 'falseAnswer'; //finish ekraninda gosterilecek mesaj turu
     else if (value === 'timesUp') leaveOrFalse = 'timesUp';
 
-    if (this.props.questionsAnswers.id >= 3 && this.props.questionsAnswers.id <= 5) exitLimitIndex = 3;  //burada oyuncu 4 6 ve 8. baraj sorularindami diye kontrol edildi
+    if (this.props.questionsAnswers.id >= 3 && this.props.questionsAnswers.id <= 5) exitLimitIndex = 3;
     else if (this.props.questionsAnswers.id > 5 && this.props.questionsAnswers.id <= 8) exitLimitIndex = 5;
     else if (this.props.questionsAnswers.id > 8 && this.props.questionsAnswers.id <= 10) exitLimitIndex = 8;
 
     this.props.navigation.navigate('Finish', {
       resultTitle: leaveOrFalse,
-      finalMoney: this.state.moneyArray[exitLimitIndex], // baraj limitine gore array  indexteki miktar final sayfaina gonderdim
+      finalMoney: this.state.moneyArray[exitLimitIndex],
     });
   };
 

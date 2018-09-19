@@ -19,9 +19,6 @@ const RootStackNavigator = createStackNavigator({
     navigationOptions: { header: ()=>null },
   },
 },
-// {
-//   initialRouteName: 'Login',
-// }
 );
 
 export default function RootNavigator() {

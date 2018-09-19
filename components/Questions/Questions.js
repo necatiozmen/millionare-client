@@ -17,15 +17,15 @@ class Questions extends Component {
   }
 
   componentDidUpdate() {
-    if (this.props.isFiftyJokerSelect) this.jokerUnvisible(this.props.jokerFiftyValue); // yari-yariya joker den gelen unvisible yapilavak siklari fonskoyna gonderir eger tiklanmista
+    if (this.props.isFiftyJokerSelect) this.jokerUnvisible(this.props.jokerFiftyValue); // yari-yariya joker den gelen arraydeki siklari unvisible yapar
   }
 
   doubleJokerFunc = () => {
-    if (this.state.jokerArray.includes(this.props.questionsAnswers.correctAnswer)) { // ve eger duble secenekelrden biri dogru ise
-      this.props.isDoubleJokerSelectDispatch(false); // double jokerin answer check de bir daha kullanilmamasi icin false yaptik
-      this.correctAnswerColor(this.props.questionsAnswers.correctAnswer); // dogri sikki yesil yapalim
+    if (this.state.jokerArray.includes(this.props.questionsAnswers.correctAnswer)) { //  eger cift seceneklerden  biri dogru ise
+      this.props.isDoubleJokerSelectDispatch(false); // cift secenek jokerin answerCheck de bir daha kullanilmamasi icin false
+      this.correctAnswerColor(this.props.questionsAnswers.correctAnswer);
       setTimeout(() => {
-        this.jokerAfterStyle(), // daha sonra siklardaki rengi temizleyelim
+        this.jokerAfterStyle(), //siklardaki rengi temizle
         this.props.getQuestions(this.props.questionsAnswers.id + 1),
         this.props.prizeChange(true);}, 2000);
     } else {
@@ -37,8 +37,8 @@ class Questions extends Component {
   };
 
   answerCheck = (userAnswer) => {
-      userAnswer.setNativeProps({ style: styles.answerClickYellow }); //secilen her sik sari yapar
-      if (this.props.jokerDoubleValue && this.state.counter <= 1) { // cift secenek secilmis ise
+      userAnswer.setNativeProps({ style: styles.answerClickYellow });
+      if (this.props.jokerDoubleValue && this.state.counter <= 1) {
         this.setState({ counter: this.state.counter + 1 });
         switch (userAnswer.props.answerKey) {
           case 'a':
@@ -58,20 +58,20 @@ class Questions extends Component {
             this.setState({ jokerArray: [...this.state.jokerArray, 'd'] });
             break;
         }
-        if (this.state.counter === 1) setTimeout(() => this.doubleJokerFunc(), 2000); //cifte sans jokerinde kullanicinin sectigi siklardan olusan array i yollayip dogru cevap kontrolu yapan fonks
+        if (this.state.counter === 1) setTimeout(() => this.doubleJokerFunc(), 2000); //cifte sans jokerinde kullanicinin sectigi siklardan olusan array'i yollayip dogru cevap kontrolu yap
 
       } else {
-        if (userAnswer.props.answerKey == this.props.questionsAnswers.correctAnswer) {
-          setTimeout(() => userAnswer.setNativeProps({ style: styles.answerTrueColor }), 1000); //secilen sik 1sn bekleyip yesil yap
+        if (userAnswer.props.answerKey == this.props.questionsAnswers.correctAnswer) { // eger cevap dogru ise
+          setTimeout(() => userAnswer.setNativeProps({ style: styles.answerTrueColor }), 1000);
           setTimeout(() => {
             this.props.getQuestions(this.props.questionsAnswers.id + 1),
-            this.props.prizeChange(true), // parent daki updatePrize functioni calistirir -> para miktarini arttiri ve baraj kontrolu yapar
-            userAnswer.setNativeProps({ style: styles.answerNormalStyle });}, 2000); // element rengini eski haline cevir
+            this.props.prizeChange(true), // parent daki updatePrize functioni calistirir -> kazanilan parayi artirir
+            userAnswer.setNativeProps({ style: styles.answerNormalStyle });}, 2000); // secilen element rengini eski haline cevir
           setTimeout(() => this.jokerAfterStyle(), 2000); // fifty joker icin unvisiblelari visible yapar eger kullanilmi ise
-        } else { //eger cevap yanlis ise
+        } else {
           setTimeout(() => userAnswer.setNativeProps({ style: styles.answerFalseColor },
             this.correctAnswerColor(this.props.questionsAnswers.correctAnswer)), 1000); // dogru soruyu gostermek icin 1 sn bekleyip yesil yapiyor
-          setTimeout(() => {this.props.prizeChange(false);}, 2000); //para artmasin ve cikis ekraninna gitsin
+          setTimeout(() => {this.props.prizeChange(false);}, 2000);
         }
       }
     };
@@ -100,7 +100,7 @@ class Questions extends Component {
       this._answerd.setNativeProps({ style: styles.answerNormalStyle });
     };
 
-  jokerUnvisible = (value) => { // yari yariya joker arrayinden gelen siklara gore cevaplari unvisible yapiyor
+  jokerUnvisible = (value) => {
       if (value.includes('a')) this._answera.setNativeProps({ style: styles.jokerHalfUnvisible });
       if (value.includes('b')) this._answerb.setNativeProps({ style: styles.jokerHalfUnvisible });
       if (value.includes('c')) this._answerc.setNativeProps({ style: styles.jokerHalfUnvisible });

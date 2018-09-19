@@ -9,7 +9,7 @@ class Timer extends Component {
     return (
       <TimerCountdown
         initialSecondsRemaining={1000 * this.props.stopTimer}
-        // onTimeElapsed={() => this.props.timesUp('timesUp')}
+        onTimeElapsed={() => this.props.timesUp('timesUp')}
         allowFontScaling={true}
         style={{ fontSize: 55, color: '#fff',  fontFamily: 'MontserratSemiBold', }}
       />
