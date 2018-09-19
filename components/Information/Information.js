@@ -5,7 +5,6 @@ import StarRating from 'react-native-star-rating';
 import styles from './styles';
 
 class Information extends Component {
-
   render() {
     const { navigation } = this.props;
     return (
