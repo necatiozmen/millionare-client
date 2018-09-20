@@ -13,7 +13,7 @@ class Home extends Component {
   };
 
   updatePrize = (status) => {
-    if (status) { 
+    if (status) {
       this.setState({ prize: this.state.prize + 100 });
       this.setState({ moneyArray: [...this.state.moneyArray, this.state.prize] });
       if (this.props.questionsAnswers.id === 10) {// son soruyu dogru bilirse finish ekranina gider
@@ -52,12 +52,14 @@ class Home extends Component {
     const { navigation } = this.props;
     return (
       <View style={styles.container}>
-        <Joker style={styles.jokerContainer} jokerTimerHelper={this.leaveGame} />
+        <Joker
+          style={styles.jokerContainer}
+          jokerTimerHelper={this.leaveGame} />
         <Information
           leaveGameButton={this.leaveGame}
           prize={this.state.prize}/>
         <Questions
-         prizeChange={this.updatePrize}
+          prizeChange={this.updatePrize}
         />
       </View>
     );
