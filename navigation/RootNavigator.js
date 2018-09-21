@@ -12,7 +12,6 @@ const RootStackNavigator = createStackNavigator({
   Home: {
     screen: Home,
     navigationOptions: { header: ()=>null },
-
   },
   Finish: {
     screen: Finish,
