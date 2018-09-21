@@ -11,7 +11,6 @@ firebase.initializeApp(config);
 export const api = store => next => (action) => {
   if (action[API]) {
     const { questionId } = action[API];
-
     firebase.database().ref('/questions/' + questionId).once('value')
       .then(result => result.toJSON())
       .then((data) => {
