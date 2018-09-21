@@ -58,16 +58,14 @@ class Home extends Component {
           <View style={this.props.questionsAnswers.id > 5 ? styles.unvisibleTimer : styles.timer}>
             <Timer
               timesUp={this.leaveGame}
-              stopTimer={this.props.questionsAnswers.id > 5 ? 1000 : 30 }
+              stopTimer={this.props.questionsAnswers.id > 5 ? 1000 : 25 }
             />
           </View>
         </View>
         <Information
           leaveGameButton={this.leaveGame}
           prize={this.state.prize}/>
-        <Questions
-          prizeChange={this.updatePrize}
-        />
+        <Questions prizeChange={this.updatePrize}/>
       </View>
     );
   }
