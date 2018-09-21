@@ -3,13 +3,13 @@ import { connect } from 'react-redux';
 import { View, Text, StyleSheet } from 'react-native';
 import { jokerFifty, jokerDouble, isFiftyJokerSelectDispatch } from '../../actions';
 import { Button, Icon } from 'native-base';
-import Timer from '../Timer/Timer';
 import styles from './styles';
 
 class Joker extends Component {
   state = {
     isFiftyDisabled: false,
     isDoubleDisabled: false,
+    timerSecond:0,
   };
 
   halfJoker = () => {
@@ -49,14 +49,6 @@ class Joker extends Component {
               style={{ fontSize: 25 }}
             />
           </Button>
-        </View>
-        <View style={this.props.questionsAnswers.id > 5 ? styles.unvisibleTimer : styles.timer}>
-          <View>
-            <Timer
-              timesUp={this.props.jokerTimerHelper}
-              stopTimer={this.props.questionsAnswers.id > 5 ? 1000 : 30 }
-            />
-          </View>
         </View>
         <View>
           <Button

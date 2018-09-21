@@ -4,6 +4,7 @@ import { View } from 'react-native';
 import Questions from '../../components/Questions/Questions';
 import Joker from '../../components/Joker/Joker';
 import Information from '../../components/Information/Information';
+import Timer from '../../components/Timer/Timer';
 import styles from './styles';
 
 class Home extends Component {
@@ -52,15 +53,19 @@ class Home extends Component {
     const { navigation } = this.props;
     return (
       <View style={styles.container}>
-        <Joker
-          style={styles.jokerContainer}
-          jokerTimerHelper={this.leaveGame} />
+        <View style={styles.jokerTimerContainer}>
+          <Joker />
+          <View style={this.props.questionsAnswers.id > 5 ? styles.unvisibleTimer : styles.timer}>
+            <Timer
+              timesUp={this.leaveGame}
+              stopTimer={this.props.questionsAnswers.id > 5 ? 1000 : 25 }
+            />
+          </View>
+        </View>
         <Information
           leaveGameButton={this.leaveGame}
           prize={this.state.prize}/>
-        <Questions
-          prizeChange={this.updatePrize}
-        />
+        <Questions prizeChange={this.updatePrize}/>
       </View>
     );
   }
