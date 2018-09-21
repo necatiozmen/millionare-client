@@ -20,10 +20,9 @@ class Joker extends Component {
     newchar === 97 ? (val1 = newchar + 1,  val2 = newchar + 2) : '';
     newchar === 98 ? (val1 = newchar - 1,  val2 = newchar + 2) : '';
     newchar === 99 ? (val1 = newchar - 1,  val2 = newchar - 2) : '';
-    newchar === 100 ? (val1 = newchar - 1,  val2 = newchar - 2) : '';
+    newchar === 100 ? (val1 = newchar - 1, val2 = newchar - 2) : '';
 
     fiftyArray.push(String.fromCharCode(val1), String.fromCharCode(val2));
-
     this.props.isFiftyJokerSelectDispatch(true); // parenttaki didupdate function calismasi icin
     this.props.jokerFiftyDispatch(fiftyArray); // yuzde 50 ayarlanmis siklari gonderir
     this.setState({ isFiftyDisabled: true });
