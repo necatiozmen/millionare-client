@@ -7,10 +7,10 @@ import styles from './styles';
 
 class Questions extends Component {
   state = {
-        questionId: 1,
-        counter: 0,
-        jokerArray: [],
-      };
+    questionId: 1,
+    counter: 0,
+    jokerArray: [],
+  };
 
   componentDidMount() {
     this.props.getQuestions(this.state.questionId);
@@ -36,76 +36,54 @@ class Questions extends Component {
     }
   };
 
+
   answerCheck = (userAnswer) => {
       userAnswer.setNativeProps({ style: styles.answerClickYellow });
       if (this.props.jokerDoubleValue && this.state.counter <= 1) {
         this.setState({ counter: this.state.counter + 1 });
-        switch (userAnswer.props.answerKey) {
-          case 'a':
-            this._answera.setNativeProps({ style: styles.answerClickYellow });
-            this.setState({ jokerArray: [...this.state.jokerArray, 'a'] });
-            break;
-          case 'b':
-            this._answerb.setNativeProps({ style: styles.answerClickYellow });
-            this.setState({ jokerArray: [...this.state.jokerArray, 'b'] });
-            break;
-          case 'c':
-            this._answerc.setNativeProps({ style: styles.answerClickYellow });
-            this.setState({ jokerArray: [...this.state.jokerArray, 'c'] });
-            break;
-          case 'd':
-            this._answerd.setNativeProps({ style: styles.answerClickYellow });
-            this.setState({ jokerArray: [...this.state.jokerArray, 'd'] });
-            break;
-        }
+        userAnswer.props.answerKey === 'a' ? this.setState({ jokerArray: [...this.state.jokerArray, 'a'] }) : null;
+        userAnswer.props.answerKey === 'b' ? this.setState({ jokerArray: [...this.state.jokerArray, 'b'] }) : null;
+        userAnswer.props.answerKey === 'c' ? this.setState({ jokerArray: [...this.state.jokerArray, 'c'] }) : null;
+        userAnswer.props.answerKey === 'd' ? this.setState({ jokerArray: [...this.state.jokerArray, 'd'] }) : null;
         if (this.state.counter === 1) setTimeout(() => this.doubleJokerFunc(), 2000); //cifte sans jokerinde kullanicinin sectigi siklardan olusan array'i yollayip dogru cevap kontrolu yap
       } else {
         if (userAnswer.props.answerKey == this.props.questionsAnswers.correctAnswer) { // eger cevap dogru ise
           setTimeout(() => userAnswer.setNativeProps({ style: styles.answerTrueColor }), 1000);
           setTimeout(() => {
+            this.jokerAfterStyle(), // cevaplar orjinal renklerine doner
             this.props.getQuestions(this.props.questionsAnswers.id + 1),
-            this.props.prizeChange(true), // parent daki updatePrize functioni calistirir -> kazanilan parayi artirir
-            userAnswer.setNativeProps({ style: styles.answerNormalStyle });}, 2000); // secilen element rengini eski haline cevir
-          setTimeout(() => this.jokerAfterStyle(), 2000); // fifty joker icin unvisiblelari visible yapar eger kullanilmi ise
+            this.props.prizeChange(true);
+          }, 2000);
         } else {
-          setTimeout(() => userAnswer.setNativeProps({ style: styles.answerFalseColor },
-            this.correctAnswerColor(this.props.questionsAnswers.correctAnswer)), 1000); // dogru soruyu gostermek icin 1 sn bekleyip yesil yapiyor
+          setTimeout(() =>
+            userAnswer.setNativeProps({ style: styles.answerFalseColor },
+            this.correctAnswerColor(this.props.questionsAnswers.correctAnswer)), 1000); // dogru soruyu gostermek icin 1 sn bekleyip kirmiziyi cevabi yesil yapiyor
           setTimeout(() => {this.props.prizeChange(false);}, 2000);
         }
       }
     };
 
-  correctAnswerColor = (value) => {
-    switch (value) {
-      case 'a':
-        this._answera.setNativeProps({ style: styles.answerTrueColor });
-        break;
-      case 'b':
-        this._answerb.setNativeProps({ style: styles.answerTrueColor });
-        break;
-      case 'c':
-        this._answerc.setNativeProps({ style: styles.answerTrueColor });
-        break;
-      case 'd':
-        this._answerd.setNativeProps({ style: styles.answerTrueColor });
-        break;
-    }
+  correctAnswerColor = (val) => {
+    val === 'a' ? this._answera.setNativeProps({ style: styles.answerTrueColor }) : null;
+    val === 'b' ? this._answerb.setNativeProps({ style: styles.answerTrueColor }) : null;
+    val === 'c' ? this._answerc.setNativeProps({ style: styles.answerTrueColor }) : null;
+    val === 'd' ? this._answerd.setNativeProps({ style: styles.answerTrueColor }) : null;
   };
 
-  jokerAfterStyle = (value) => {
-      this._answera.setNativeProps({ style: styles.answerNormalStyle });
-      this._answerb.setNativeProps({ style: styles.answerNormalStyle });
-      this._answerc.setNativeProps({ style: styles.answerNormalStyle });
-      this._answerd.setNativeProps({ style: styles.answerNormalStyle });
-    };
+  jokerAfterStyle = (val) => {
+    this._answera.setNativeProps({ style: styles.answerNormalStyle });
+    this._answerb.setNativeProps({ style: styles.answerNormalStyle });
+    this._answerc.setNativeProps({ style: styles.answerNormalStyle });
+    this._answerd.setNativeProps({ style: styles.answerNormalStyle });
+  };
 
-  jokerUnvisible = (value) => {
-      if (value.includes('a')) this._answera.setNativeProps({ style: styles.jokerHalfUnvisible });
-      if (value.includes('b')) this._answerb.setNativeProps({ style: styles.jokerHalfUnvisible });
-      if (value.includes('c')) this._answerc.setNativeProps({ style: styles.jokerHalfUnvisible });
-      if (value.includes('d')) this._answerd.setNativeProps({ style: styles.jokerHalfUnvisible });
-      this.props.isFiftyJokerSelectDispatch(false);
-    };
+  jokerUnvisible = (val) => {
+    val.includes('a') ? this._answera.setNativeProps({ style: styles.jokerHalfUnvisible }) : null;
+    val.includes('b') ? this._answerb.setNativeProps({ style: styles.jokerHalfUnvisible }) : null;
+    val.includes('c') ? this._answerc.setNativeProps({ style: styles.jokerHalfUnvisible }) : null;
+    val.includes('d') ? this._answerd.setNativeProps({ style: styles.jokerHalfUnvisible }) : null;
+    this.props.isFiftyJokerSelectDispatch(false);
+  };
 
   render() {
     return (
@@ -115,7 +93,9 @@ class Questions extends Component {
             {this.props.questionsAnswers.question}
           </Text>
         </View>
-        <View style={styles.answers}>
+        <View
+          ref={mainView => this._answersContainer = mainView}
+          style={styles.answers}>
         <TouchableOpacity onPress={() => this.answerCheck(this._answera)}>
           <View
             answerKey='a'
