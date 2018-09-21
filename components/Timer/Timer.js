@@ -7,12 +7,14 @@ import TimerCountdown from 'react-native-timer-countdown';
 class Timer extends Component {
   render() {
     return (
-      <TimerCountdown
-        initialSecondsRemaining={1000 * this.props.stopTimer}
-        onTimeElapsed={() => this.props.timesUp('timesUp')}
-        allowFontScaling={true}
-        style={{ fontSize: 55, color: '#fff',  fontFamily: 'MontserratSemiBold', }}
-      />
+      <View>
+        <TimerCountdown
+          initialSecondsRemaining={1000 * this.props.stopTimer}
+          onTimeElapsed={() => this.props.timesUp('timesUp')}
+          allowFontScaling={true}
+          style={{ fontSize: 55, color: '#fff',  fontFamily: 'MontserratSemiBold', }}
+        />
+      </View>
     );
   }
 }
