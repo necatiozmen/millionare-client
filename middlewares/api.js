@@ -3,7 +3,7 @@ import firebase from 'firebase';
 export const API = Symbol('API');
 
 const config = {
-//firebase config
+ //firebase config
 };
 
 firebase.initializeApp(config);
