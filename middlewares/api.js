@@ -3,7 +3,7 @@ import firebase from 'firebase';
 export const API = Symbol('API');
 
 const config = {
- //firebase config
+  //firebase config
 };
 
 firebase.initializeApp(config);
@@ -15,7 +15,6 @@ export const api = store => next => (action) => {
     firebase.database().ref('/questions/').once('value')
       .then(result => result.toJSON())
       .then((data) => {
-        console.log(data);
         store.dispatch({
           type: `${action.type}_SUCCESS`,
           data,

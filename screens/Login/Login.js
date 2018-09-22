@@ -16,7 +16,6 @@ class Login extends Component {
   };
 
   render() {
-      console.log('login ciomponent');
     return (
       <View style={styles.container}>
         <View style={styles.logoImg}>
