@@ -1,13 +1,6 @@
 const defaultState = {
-  id: '',
-  question: '',
-  answer: {
-      a: '',
-      b: '',
-      c: '',
-      d: '',
-    },
-  correctAnswer: '',
+  allQuestions:[],
+  currentQuestionId:1,
 };
 
 const questions = (state = defaultState, action) => {
@@ -15,9 +8,11 @@ const questions = (state = defaultState, action) => {
     case 'GET_QUESTIONS_REQUEST':
       return { ...state, getQuestionfromDatabase: true };
     case 'GET_QUESTIONS_SUCCESS':
-      return { ...state, ...action.data };
+      return { ...state, allQuestions: action.data };
     case 'GET_QUESTIONS_FAILURE':
       return { ...state, getQuestionfromDatabase: action.error };
+    case 'INCREASE_CURRENT_QUESTION_ID':
+      return { ...state, currentQuestionId: action.data };
     default:
       return state;
   }

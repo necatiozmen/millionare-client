@@ -13,7 +13,7 @@ class Joker extends Component {
   };
 
   halfJoker = () => {
-    const correctAnswer = this.props.questionsAnswers.correctAnswer;
+    const correctAnswer = this.props.questionsAnswers[this.props.currentQuestionId].correctAnswer;
     let fiftyArray = [];
     let newchar = correctAnswer.charCodeAt(0);
 
@@ -68,7 +68,8 @@ class Joker extends Component {
 };
 
 const mapStateToProps = state => ({
-  questionsAnswers: state.questions,
+  questionsAnswers: state.questions.allQuestions,
+  currentQuestionId: state.questions.currentQuestionId,
 });
 
 const mapDispatchToProps = dispatch => ({
