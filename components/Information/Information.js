@@ -18,12 +18,12 @@ class Information extends Component {
             <View style={styles.questionCountContainer}>
               <View>
                 <Text style={styles.questionCountText}>
-                  SORU: {this.props.questionsAnswers.id}
+                  SORU: {this.props.currentQuestionId}
                 </Text>
               </View>
               <View>
                 <Text style={styles.questionCountText}>
-                  Kalan Soru: {10 - this.props.questionsAnswers.id}
+                  Kalan Soru: {10 - this.props.currentQuestionId}
                 </Text>
               </View>
             </View>
@@ -44,7 +44,7 @@ class Information extends Component {
               disabled={false}
               maxStars={10}
               fullStarColor={'#f6b93b'}
-              rating={parseInt(this.props.questionsAnswers.id)}
+              rating={parseInt(this.props.currentQuestionId)}
             />
           </View>
         </View>
@@ -53,7 +53,7 @@ class Information extends Component {
 };
 
 const mapStateToProps = state => ({
-    questionsAnswers: state.questions,
+  currentQuestionId: state.questions.currentQuestionId,
   });
 
 export default connect(mapStateToProps, null)(Information);

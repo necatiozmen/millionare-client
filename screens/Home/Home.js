@@ -17,7 +17,7 @@ class Home extends Component {
     if (status) {
       this.setState({ prize: this.state.prize + 100 });
       this.setState({ moneyArray: [...this.state.moneyArray, this.state.prize] });
-      if (this.props.questionsAnswers.id === 10) {// son soruyu dogru bilirse finish ekranina gider
+      if (this.state.moneyArray.length > 10) {// son soruda oldugunu kazandigi ikramiyelerin sayisindan kontrol ediyorum
         this.props.navigation.navigate('Finish', {
           resultTitle: 'winBigAward',
           finalMoney: this.state.prize,
@@ -39,9 +39,9 @@ class Home extends Component {
     if (value === 'falseAnswer') leaveOrFalse = 'falseAnswer'; //finish ekraninda gosterilecek mesaj turu
     else if (value === 'timesUp') leaveOrFalse = 'timesUp';
 
-    if (this.props.questionsAnswers.id >= 3 && this.props.questionsAnswers.id <= 5) exitLimitIndex = 3;
-    else if (this.props.questionsAnswers.id > 5 && this.props.questionsAnswers.id <= 8) exitLimitIndex = 5;
-    else if (this.props.questionsAnswers.id > 8 && this.props.questionsAnswers.id <= 10) exitLimitIndex = 8;
+    if (this.props.currentQuestionId >= 3 && this.props.currentQuestionId <= 5) exitLimitIndex = 3;
+    else if (this.props.currentQuestionId > 5 && this.props.currentQuestionId <= 8) exitLimitIndex = 5;
+    else if (this.props.currentQuestionId > 8 && this.props.currentQuestionId <= 10) exitLimitIndex = 8;
 
     this.props.navigation.navigate('Finish', {
       resultTitle: leaveOrFalse,
@@ -55,10 +55,10 @@ class Home extends Component {
       <View style={styles.container}>
         <View style={styles.jokerTimerContainer}>
           <Joker />
-          <View style={this.props.questionsAnswers.id > 5 ? styles.unvisibleTimer : styles.timer}>
+          <View style={this.props.currentQuestionId > 5 ? styles.unvisibleTimer : styles.timer}>
             <Timer
               timesUp={this.leaveGame}
-              stopTimer={this.props.questionsAnswers.id > 5 ? 1000 : 25 }
+              stopTimer={this.props.currentQuestionId > 5 ? 1000 : 25 }
             />
           </View>
         </View>
@@ -72,7 +72,7 @@ class Home extends Component {
 };
 
 const mapStateToProps = state => ({
-    questionsAnswers: state.questions,
+    currentQuestionId: state.questions.currentQuestionId,
   });
 
 export default connect(mapStateToProps, null)(Home);
