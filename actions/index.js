@@ -21,3 +21,8 @@ export const isFiftyJokerSelectDispatch = (data) => ({
   type: 'IS_FIFTY_JOKER_SELECT',
   data,
 });
+
+export const currentQuestionId = (data) => ({
+  type: "INCREASE_CURRENT_QUESTION_ID",
+  data,
+})
